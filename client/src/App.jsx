@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router,Route,Routes} from  'react-router-dom'
 import Home from './pages/Home'
 import Cafe from './pages/Cafe'
-import Resturant from './pages/Resturant'
-import Hotel from './pages/Hotel'
+import Resturant from './pages/Resturant/Resturant'
+import Hotel from './pages/Hotel/Hotel'
 import CafeConfirm from './pages/CafeConfirm'
 
 export default function App() {
