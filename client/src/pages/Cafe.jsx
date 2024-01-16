@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 export default function Cafe() {
   return (
     <div className="bg-img min-h-screen bg-opacity bg-cover bg-no-repeat relative">
-        <header className='text-center bg-orangeD1 text-white font-Ubuntu text-3xl py-5'>MEJBAN <span className='text-4xl font-bold text-black'>Cafe</span></header>
+        <header className='text-center bg-black  font-Ubuntu text-3xl py-5 text-orangeD1'>MEJBAN <span className="text-white text-4xl font-bold ">Jail</span> <span className='text-4xl font-bold text-orangeD1'>Cafe</span></header>
         <SearchBar/>
         <MenuComp/>
         {/* place order */}

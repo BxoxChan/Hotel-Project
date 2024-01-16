@@ -4,11 +4,11 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
 export default function CafeConfirm() {
   return (
-    <div className='bg-cover h-screen'>
+    <div className='bg-cover  min-h-screen relative'>
         <header className='text-center bg-orangeD1 text-white font-Ubuntu text-3xl py-5'>MEJBAN <span className='text-4xl font-bold text-black'>Cafe</span></header>
          
          <header className='font-bold text-black text-2xl text-center'>Your Orders</header>
-         <div className='border-2 border-black mt-5 mx-2 h-menu relative'>
+         <div className='border-2 border-black mt-5 mx-2 h-fit '>
            <div className='flex justify-around my-2'>
             <div>items</div>
             <div>quantity</div>
@@ -38,12 +38,20 @@ export default function CafeConfirm() {
             </div>
            </div>
 
+           {/* addition */}
+
+           <div className='flex flex-col  justify-center'>
+           <h1 className='font-bold pl-2'>Addtions</h1>
+           <textarea name='addOns' cols="40" rows="4" className='border m-2' placeholder='1.Extra butter...'/>
+           </div>
+
+
 
            {/* total */}
 
-           <div className='w-full absolute bottom-0 border-black border flex justify-between px-2'>
+           <div className='w-full  border-black border flex justify-between px-2'>
             <div>Total</div>
-            <div>₹600</div>
+            <div>₹600 +{"(Add)"}</div>
            </div>
            
             {/* <div>
@@ -64,7 +72,7 @@ export default function CafeConfirm() {
                     {/* <NavLink to={"/cafe/confirmOrderCafe"} className ="bg-orange-500 text-white w-full  absolute bottom-0 py-2 text-2xl text-center">Cart</NavLink> */}
 
          </div>
-            <button className ="bg-orange-500 text-white w-full  py-2 text-2xl my-1">Place Order</button>
+            <button className ="bg-orange-500 text-white w-full py-2 text-2xl mt-5">Place Order</button>
     </div>
   )
 }
