@@ -13,7 +13,8 @@ export default {
         Ubuntu: ["Ubuntu", "sans - serif"],
       },
       backgroundImage: {
-        img: "url('./public/cafeBG.jpg')",
+        img: "url('./cafeBG2.jpg')",
+        resturant: "url('./cafeBG.jpg')",
       },
       height: {
         menu: "460px",
