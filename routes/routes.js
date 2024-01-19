@@ -49,6 +49,7 @@ router.post('/create-order', (req, res) => {
   const { ServiceID, TableNumber, OrderDate, FoodItems } = req.body;
 
   // Assuming you have Services and Tables tables already created
+  // Still working on this How to connect QR in Service Table
 
   // Create the order
   const createOrderSQL = 'INSERT INTO Orders (ServiceID, TableNumber, OrderDate) VALUES (?, ?, ?)';
