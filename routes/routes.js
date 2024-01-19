@@ -14,6 +14,24 @@ router.get('/customers', (req, res) => {
   });
 });
 
+
+// Create Menu Route
+router.post('/create-menu', (req, res) => {
+  const { name, price } = req.body;
+
+  const sql = 'INSERT INTO menu (name, price) VALUES (?, ?)';
+  db.query(sql, [name, price], (err, result) => {
+    if (err) {
+      console.error('Error creating menu item:', err);
+      res.status(500).send('Error creating menu item');
+    } else {
+      console.log('Menu item created successfully');
+      res.status(201).send('Menu item created successfully');
+    }
+  });
+});
+
+
 // Get all menu items
 router.get('/menu', (req, res) => {
   db.query('SELECT * FROM Menu', (err, results) => {
@@ -22,6 +40,37 @@ router.get('/menu', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
       res.json(results);
+    }
+  });
+});
+
+// Create Order Route
+router.post('/create-order', (req, res) => {
+  const { ServiceID, TableNumber, OrderDate, FoodItems } = req.body;
+
+  // Assuming you have Services and Tables tables already created
+
+  // Create the order
+  const createOrderSQL = 'INSERT INTO Orders (ServiceID, TableNumber, OrderDate) VALUES (?, ?, ?)';
+  db.query(createOrderSQL, [ServiceID, TableNumber, OrderDate], (err, result) => {
+    if (err) {
+      console.error('Error creating order:', err);
+      res.status(500).send('Error creating order');
+    } else {
+      console.log('Order created successfully');
+
+      // Create order details for each food item
+      const orderId = result.insertId;
+      const createOrderDetailsSQL = 'INSERT INTO OrderDetails (OrderID, FoodItemID, Quantity) VALUES (?, ?, ?)';
+      FoodItems.forEach((foodItem) => {
+        db.query(createOrderDetailsSQL, [orderId, foodItem.FoodItemID, foodItem.Quantity], (err) => {
+          if (err) {
+            console.error('Error creating order details:', err);
+          }
+        });
+      });
+
+      res.status(201).send('Order created successfully');
     }
   });
 });

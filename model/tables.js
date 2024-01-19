@@ -1,229 +1,196 @@
-const { connectToDatabase, closeDatabaseConnection } = require('../routes/db');
+// tables.js
+const db = require('../routes/db');
 
-async function createCustomersTable() {
-    const query = `
-        CREATE TABLE Customers (
-            CustomerID INT PRIMARY KEY,
-            FirstName VARCHAR(50),
-            LastName VARCHAR(50),
-            Email VARCHAR(100),
-            PhoneNumber VARCHAR(15),
-            QRCode VARCHAR(255) UNIQUE
-        );
-    `;
+// Create Menu Table
+const createMenuTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS menu (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(255) NOT NULL,
+      price DECIMAL(10, 2) NOT NULL
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating menu table:', err);
+    else console.log('Menu table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Customers table created successfully');
-    } catch (error) {
-        console.error('Error creating Customers table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
+// Create Customers Table
+const createCustomersTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Customers (
+      CustomerID INT PRIMARY KEY,
+      FirstName VARCHAR(50),
+      LastName VARCHAR(50),
+      Email VARCHAR(100),
+      PhoneNumber VARCHAR(15),
+      QRCode VARCHAR(255) UNIQUE
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Customers table:', err);
+    else console.log('Customers table created successfully');
+  });
+};
 
-async function createPortalsTable() {
-    const query = `
-        CREATE TABLE Portals (
-            PortalID INT PRIMARY KEY,
-            PortalType VARCHAR(20) CHECK (PortalType IN ('Hotel', 'Cafe', 'Restaurant')),
-            CustomerID INT,
-            QRCode VARCHAR(255) UNIQUE,
-            FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-        );
-    `;
+// Create Portals Table
+const createPortalsTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Portals (
+      PortalID INT PRIMARY KEY,
+      PortalType VARCHAR(20) CHECK (PortalType IN ('Hotel', 'Cafe', 'Restaurant')),
+      CustomerID INT,
+      QRCode VARCHAR(255) UNIQUE,
+      FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Portals table:', err);
+    else console.log('Portals table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Portals table created successfully');
-    } catch (error) {
-        console.error('Error creating Portals table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
+// Create Rooms Table
+const createRoomsTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Rooms (
+      RoomNumber INT PRIMARY KEY,
+      HotelPortalID INT,
+      FOREIGN KEY (HotelPortalID) REFERENCES Portals(PortalID)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Rooms table:', err);
+    else console.log('Rooms table created successfully');
+  });
+};
 
-async function createRoomsTable() {
-    const query = `
-        CREATE TABLE Rooms (
-            RoomNumber INT PRIMARY KEY,
-            HotelPortalID INT,
-            FOREIGN KEY (HotelPortalID) REFERENCES Portals(PortalID)
-        );
-    `;
+// Create Tables Table
+const createTablesTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Tables (
+      TableNumber INT PRIMARY KEY,
+      CafeRestaurantPortalID INT,
+      FOREIGN KEY (CafeRestaurantPortalID) REFERENCES Portals(PortalID)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Tables table:', err);
+    else console.log('Tables table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Rooms table created successfully');
-    } catch (error) {
-        console.error('Error creating Rooms table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
+// Create Services Table
+const createServicesTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Services (
+      ServiceID INT PRIMARY KEY,
+      ServiceType VARCHAR(20) CHECK (ServiceType IN ('Hotel', 'Cafe', 'Restaurant')),
+      PortalID INT,
+      FOREIGN KEY (PortalID) REFERENCES Portals(PortalID)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Services table:', err);
+    else console.log('Services table created successfully');
+  });
+};
 
-async function createTablesTable() {
-    const query = `
-        CREATE TABLE Tables (
-            TableNumber INT PRIMARY KEY,
-            CafeRestaurantPortalID INT,
-            FOREIGN KEY (CafeRestaurantPortalID) REFERENCES Portals(PortalID)
-        );
-    `;
+// Create RoomService Table
+const createRoomServiceTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS RoomService (
+      RoomServiceID INT PRIMARY KEY,
+      RoomNumber INT,
+      ServiceDetails VARCHAR(255),
+      FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating RoomService table:', err);
+    else console.log('RoomService table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Tables table created successfully');
-    } catch (error) {
-        console.error('Error creating Tables table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
+// Create FoodItems Table
+const createFoodItemsTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS FoodItems (
+      FoodItemID INT PRIMARY KEY,
+      ItemName VARCHAR(50),
+      Price DECIMAL(10, 2)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating FoodItems table:', err);
+    else console.log('FoodItems table created successfully');
+  });
+};
 
-async function createServicesTable() {
-    const query = `
-        CREATE TABLE Services (
-            ServiceID INT PRIMARY KEY,
-            ServiceType VARCHAR(20) CHECK (ServiceType IN ('Hotel', 'Cafe', 'Restaurant')),
-            PortalID INT,
-            FOREIGN KEY (PortalID) REFERENCES Portals(PortalID)
-        );
-    `;
+// Create Orders Table
+const createOrdersTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Orders (
+      OrderID INT PRIMARY KEY,
+      ServiceID INT,
+      TableNumber INT,
+      OrderDate DATETIME,
+      FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
+      FOREIGN KEY (TableNumber) REFERENCES Tables(TableNumber)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Orders table:', err);
+    else console.log('Orders table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Services table created successfully');
-    } catch (error) {
-        console.error('Error creating Services table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
+// Create OrderDetails Table
+const createOrderDetailsTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS OrderDetails (
+      OrderDetailID INT PRIMARY KEY,
+      OrderID INT,
+      FoodItemID INT,
+      Quantity INT,
+      FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+      FOREIGN KEY (FoodItemID) REFERENCES FoodItems(FoodItemID)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating OrderDetails table:', err);
+    else console.log('OrderDetails table created successfully');
+  });
+};
 
-async function createRoomServiceTable() {
-    const query = `
-        CREATE TABLE RoomService (
-            RoomServiceID INT PRIMARY KEY,
-            RoomNumber INT,
-            ServiceDetails VARCHAR(255),
-            FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
-        );
-    `;
+// Create Addons Table
+const createAddonsTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS Addons (
+      AddonID INT PRIMARY KEY,
+      RoomNumber INT,
+      AddonDetails VARCHAR(255),
+      FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating Addons table:', err);
+    else console.log('Addons table created successfully');
+  });
+};
 
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('RoomService table created successfully');
-    } catch (error) {
-        console.error('Error creating RoomService table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
-
-async function createFoodItemsTable() {
-    const query = `
-        CREATE TABLE FoodItems (
-            FoodItemID INT PRIMARY KEY,
-            ItemName VARCHAR(50),
-            Price DECIMAL(10, 2)
-        );
-    `;
-
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('FoodItems table created successfully');
-    } catch (error) {
-        console.error('Error creating FoodItems table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
-
-async function createOrdersTable() {
-    const query = `
-        CREATE TABLE Orders (
-            OrderID INT PRIMARY KEY,
-            ServiceID INT,
-            TableNumber INT,
-            OrderDate DATETIME,
-            FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
-            FOREIGN KEY (TableNumber) REFERENCES Tables(TableNumber)
-        );
-    `;
-
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Orders table created successfully');
-    } catch (error) {
-        console.error('Error creating Orders table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
-
-async function createOrderDetailsTable() {
-    const query = `
-        CREATE TABLE OrderDetails (
-            OrderDetailID INT PRIMARY KEY,
-            OrderID INT,
-            FoodItemID INT,
-            Quantity INT,
-            FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-            FOREIGN KEY (FoodItemID) REFERENCES FoodItems(FoodItemID)
-        );
-    `;
-
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('OrderDetails table created successfully');
-    } catch (error) {
-        console.error('Error creating OrderDetails table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
-
-async function createAddonsTable() {
-    const query = `
-        CREATE TABLE Addons (
-            AddonID INT PRIMARY KEY,
-            RoomNumber INT,
-            AddonDetails VARCHAR(255),
-            FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
-        );
-    `;
-
-    try {
-        await connectToDatabase();
-        await db.query(query);
-        console.log('Addons table created successfully');
-    } catch (error) {
-        console.error('Error creating Addons table:', error);
-    } finally {
-        await closeDatabaseConnection();
-    }
-}
-
-// Call the functions to create tables
-createCustomersTable();
-createPortalsTable();
-createRoomsTable();
-createTablesTable();
-createServicesTable();
-createRoomServiceTable();
-createFoodItemsTable();
-createOrdersTable();
-createOrderDetailsTable();
-createAddonsTable();
-
-
+module.exports = {
+  createMenuTable,
+  createCustomersTable,
+  createPortalsTable,
+  createRoomsTable,
+  createTablesTable,
+  createServicesTable,
+  createRoomServiceTable,
+  createFoodItemsTable,
+  createOrdersTable,
+  createOrderDetailsTable,
+  createAddonsTable,
+  // Add other functions for table creation
+};
