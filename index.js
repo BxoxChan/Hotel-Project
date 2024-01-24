@@ -59,6 +59,7 @@ tables.createRoomServiceTable();
 tables.createFoodItemsTable();
 tables.createOrdersTable();
 tables.createOrderDetailsTable();
+tables.createOrderHistoryTable();
 tables.createAddonsTable();
 
 // Start the server

@@ -132,7 +132,7 @@ const createFoodItemsTable = () => {
 const createOrdersTable = () => {
   const sql = `
     CREATE TABLE IF NOT EXISTS Orders (
-      OrderID INT PRIMARY KEY,
+      OrderID INT PRIMARY KEY AUTO_INCREMENT,
       ServiceID INT,
       TableNumber INT,
       OrderDate DATETIME,
@@ -150,7 +150,7 @@ const createOrdersTable = () => {
 const createOrderDetailsTable = () => {
   const sql = `
     CREATE TABLE IF NOT EXISTS OrderDetails (
-      OrderDetailID INT PRIMARY KEY,
+      OrderDetailID INT PRIMARY KEY AUTO_INCREMENT,
       OrderID INT,
       FoodItemID INT,
       Quantity INT,
@@ -161,6 +161,26 @@ const createOrderDetailsTable = () => {
   db.query(sql, (err) => {
     if (err) console.error('Error creating OrderDetails table:', err);
     else console.log('OrderDetails table created successfully');
+  });
+};
+
+// Create OrderHistory Table
+const createOrderHistoryTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS OrderHistory (
+      OrderID INT PRIMARY KEY AUTO_INCREMENT,
+      ServiceID INT,
+      TableNumber INT,
+      OrderDate DATETIME,
+      IsPaid BOOLEAN,
+      IsCompleted BOOLEAN,
+      FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
+      FOREIGN KEY (TableNumber) REFERENCES Tables(TableNumber)
+    )
+  `;
+  db.query(sql, (err) => {
+    if (err) console.error('Error creating OrderHistory table:', err);
+    else console.log('OrderHistory table created successfully');
   });
 };
 
@@ -191,6 +211,7 @@ module.exports = {
   createFoodItemsTable,
   createOrdersTable,
   createOrderDetailsTable,
+  createOrderHistoryTable,
   createAddonsTable,
   // Add other functions for table creation
 };
