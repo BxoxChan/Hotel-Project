@@ -7,6 +7,7 @@ import Hotel from './pages/Hotel/Hotel'
 import CafeConfirm from './pages/CafeConfirm'
 import HotelServices from './pages/Hotel/HotelServices'
 import OrderFood from './pages/Hotel/OrderFood'
+import CookingStaffHome from './pages/CookingStaff/CookingStaffHome'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path='/hotel' element={<Hotel/>}/>
             <Route path='/hotel/orderFood' element={<OrderFood/>}/>
             <Route path='/hotel/hotelServices' element={<HotelServices/>}/>
+            <Route path='/staff/ordersPage' element={<CookingStaffHome/>}/>
         </Routes>
         </Router>
     </div>
