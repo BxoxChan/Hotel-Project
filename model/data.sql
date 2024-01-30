@@ -1,83 +1,80 @@
--- Table for Customers
-CREATE TABLE Customers (
-    CustomerID INT PRIMARY KEY,
-    FirstName VARCHAR(50),
-    LastName VARCHAR(50),
-    Email VARCHAR(100),
-    PhoneNumber VARCHAR(15),
-    QRCode VARCHAR(255) UNIQUE
+-- Customer Table
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    qr_code VARCHAR(255)
 );
 
--- Table for Portals (Hotel, Cafe, Restaurant)
-CREATE TABLE Portals (
-    PortalID INT PRIMARY KEY,
-    PortalType VARCHAR(20) CHECK (PortalType IN ('Hotel', 'Cafe', 'Restaurant')),
-    CustomerID INT,
-    QRCode VARCHAR(255) UNIQUE,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+-- MenuItem Table
+CREATE TABLE MenuItem (
+    item_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10, 2),
+    service_type_id INT,
+    FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
 );
 
--- Table for Rooms (Hotel)
-CREATE TABLE Rooms (
-    RoomNumber INT PRIMARY KEY,
-    HotelPortalID INT,
-    FOREIGN KEY (HotelPortalID) REFERENCES Portals(PortalID)
+-- Order Table
+CREATE TABLE Order (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    item_id INT,
+    total_cost DECIMAL(10, 2),
+    status VARCHAR(50),
+    table_or_room_number VARCHAR(50), -- New column for table number or room number
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
 );
 
--- Table for Tables (Cafe and Restaurant)
-CREATE TABLE Tables (
-    TableNumber INT PRIMARY KEY,
-    CafeRestaurantPortalID INT,
-    FOREIGN KEY (CafeRestaurantPortalID) REFERENCES Portals(PortalID)
+
+-- ServiceType Table
+CREATE TABLE ServiceType (
+    service_type_id INT PRIMARY KEY,
+    name VARCHAR(255)
 );
 
--- Table for Services (Hotel, Cafe, and Restaurant)
-CREATE TABLE Services (
-    ServiceID INT PRIMARY KEY,
-    ServiceType VARCHAR(20) CHECK (ServiceType IN ('Hotel', 'Cafe', 'Restaurant')),
-    PortalID INT,
-    FOREIGN KEY (PortalID) REFERENCES Portals(PortalID)
+-- Cook Table
+CREATE TABLE Cook (
+    cook_id INT PRIMARY KEY,
+    name VARCHAR(255)
 );
 
--- Table for Room Service (Hotel-specific)
-CREATE TABLE RoomService (
-    RoomServiceID INT PRIMARY KEY,
-    RoomNumber INT,
-    ServiceDetails VARCHAR(255),
-    FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
+-- Admin Table
+CREATE TABLE Admin (
+    admin_id INT PRIMARY KEY,
+    name VARCHAR(255)
 );
 
--- Table for Food Items
-CREATE TABLE FoodItems (
-    FoodItemID INT PRIMARY KEY,
-    ItemName VARCHAR(50),
-    Price DECIMAL(10, 2)
+-- AdOnService Table
+CREATE TABLE AdOnService (
+    ad_service_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10, 2)
 );
 
--- Table for Orders
-CREATE TABLE Orders (
-    OrderID INT PRIMARY KEY,
-    ServiceID INT,
-    TableNumber INT,
-    OrderDate DATETIME,
-    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID),
-    FOREIGN KEY (TableNumber) REFERENCES Tables(TableNumber)
+-- CustomerAdService Table
+CREATE TABLE CustomerAdService (
+    customer_id INT,
+    ad_service_id INT,
+    PRIMARY KEY (customer_id, ad_service_id),
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY (ad_service_id) REFERENCES AdOnService(ad_service_id)
 );
 
--- Table for Order Details
-CREATE TABLE OrderDetails (
-    OrderDetailID INT PRIMARY KEY,
-    OrderID INT,
-    FoodItemID INT,
-    Quantity INT,
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (FoodItemID) REFERENCES FoodItems(FoodItemID)
+-- DailySales Table
+CREATE TABLE DailySales (
+    sale_date DATE PRIMARY KEY,
+    total_sales DECIMAL(10, 2)
 );
 
--- Table for Add-ons (Hotel-specific)
-CREATE TABLE Addons (
-    AddonID INT PRIMARY KEY,
-    RoomNumber INT,
-    AddonDetails VARCHAR(255),
-    FOREIGN KEY (RoomNumber) REFERENCES Rooms(RoomNumber)
+-- WeeklySales Table
+CREATE TABLE WeeklySales (
+    week_number INT PRIMARY KEY,
+    total_sales DECIMAL(10, 2)
+);
+
+-- MonthlySales Table
+CREATE TABLE MonthlySales (
+    month_year VARCHAR(10) PRIMARY KEY,
+    total_sales DECIMAL(10, 2)
 );
