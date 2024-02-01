@@ -5,6 +5,8 @@ export default {
     extend: {
       colors: {
         orangeD1: "#FF9843",
+        brownCust: "#e1d5c9",
+        Cust1: "#EFECEC",
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
@@ -14,10 +16,24 @@ export default {
       },
       backgroundImage: {
         img: "url('./cafeBG2.jpg')",
+        jail: "url('./cafeBg1.png')",
+        jail2: "url('./jailImg2.jpg')",
+        jailgif: "url('./jailGif.gif')",
+        jail4: "url('./jail4.jpg')",
+        jail5: "url('./jail5.png')",
+        jail6: "url('./jail6.jpg')",
+        jail7: "url('./jail7.jpg')",
+        jails: "url('./jailimgs.jpg')",
+        jails2: "url('./jailS2.jpg')",
+        jails3: "url('./jailS3.png')",
         resturant: "url('./cafeBG.jpg')",
       },
       height: {
         menu: "460px",
+        "90%": "90%",
+      },
+      boxShadow: {
+        shadowCust: "0.5px 0px 10px 0.5px gray",
       },
     },
   },

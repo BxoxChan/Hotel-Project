@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 
 export default function Cafe() {
   return (
-    <div className="bg-img min-h-screen bg-opacity bg-cover bg-no-repeat relative">
+    <div className="bg-jails min-h-screen bg-opacity bg-center bg-no-repeat bg-cover  relative">
         <header className='text-center bg-black  font-Ubuntu text-3xl py-5 text-orangeD1'>MEJBAN <span className="text-white text-4xl font-bold ">Jail</span> <span className='text-4xl font-bold text-orangeD1'>Cafe</span></header>
         <SearchBar/>
         <MenuComp/>
