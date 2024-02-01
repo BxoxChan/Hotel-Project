@@ -6,6 +6,7 @@ export default {
       colors: {
         orangeD1: "#FF9843",
         brownCust: "#e1d5c9",
+        Cust1: "#EFECEC",
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
@@ -30,6 +31,9 @@ export default {
       height: {
         menu: "460px",
         "90%": "90%",
+      },
+      boxShadow: {
+        shadowCust: "0.5px 0px 10px 0.5px gray",
       },
     },
   },
