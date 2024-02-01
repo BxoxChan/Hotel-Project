@@ -11,7 +11,7 @@ const server = http.createServer(app);
 const io = socketIO(server);
 const PORT = 3000;
 
-// Middleware 
+// Middleware
 app.use(bodyParser.json());
 
 // Use the routes defined in routes.js
@@ -49,17 +49,17 @@ io.on('connection', (socket) => {
 });
 
 // Initialize Database Tables
-tables.createMenuTable();
-tables.createCustomersTable();
-tables.createPortalsTable();
-tables.createRoomsTable();
-tables.createTablesTable();
-tables.createServicesTable();
-tables.createRoomServiceTable();
-tables.createFoodItemsTable();
-tables.createOrdersTable();
-tables.createOrderDetailsTable();
-tables.createAddonsTable();
+tables.createCustomerTable();
+tables.createMenuItemTable();
+tables.createOrderTable();
+tables.createServiceTypeTable();
+tables.createCookTable();
+tables.createAdminTable();
+tables.createAdOnServiceTable();
+tables.createCustomerAdServiceTable();
+tables.createDailySalesTable();
+tables.createWeeklySalesTable();
+tables.createMonthlySalesTable();
 
 // Start the server
 server.listen(PORT, () => {
