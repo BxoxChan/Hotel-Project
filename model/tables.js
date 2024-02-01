@@ -37,7 +37,7 @@ const createMenuItemTable = () => {
 const createOrderTable = () => {
     const sql = `
         CREATE TABLE IF NOT EXISTS OrderTable (
-            order_id INT PRIMARY KEY,
+            order_id INT PRIMARY KEY AUTO_INCREMENT,
             customer_id INT,
             item_id INT,
             total_cost DECIMAL(10, 2),
