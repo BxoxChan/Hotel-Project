@@ -111,6 +111,7 @@ export default function MenuList() {
          <th>H/R/C</th>
          <th>Status</th>
          <th>Update</th>
+         <th>Price(Updt.)</th>
         </tr>
       </thead>
          {/* orderData Card */}
