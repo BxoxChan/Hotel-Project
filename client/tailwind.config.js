@@ -31,6 +31,7 @@ export default {
       height: {
         menu: "460px",
         "90%": "90%",
+        "85%": "85%",
       },
       boxShadow: {
         shadowCust: "0.5px 0px 10px 0.5px gray",
