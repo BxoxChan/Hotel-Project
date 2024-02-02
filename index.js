@@ -10,6 +10,9 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 const PORT = 3000;
+const cors = require('cors');
+
+app.use(cors()); 
 
 // Middleware
 app.use(bodyParser.json());

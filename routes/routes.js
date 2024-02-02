@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('./db');
 
+
 // Get all customers
 router.get('/customers', (req, res) => {
   db.query('SELECT * FROM Customer', (err, results) => {
@@ -68,7 +69,12 @@ router.get('/orders/new', (req, res) => {
       console.error('Error fetching new orders:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.json(results);
+      // Check if there are results
+      if (results && results.length > 0) {
+        res.status(200).json(results); // Return 200 OK with the results
+      } else {
+        res.status(404).json({ message: 'No new orders found' }); // Return 404 Not Found
+      }
     }
   });
 });
