@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
+import PriceUpdate from './PriceUpdate';
 
 export default function MenuCard({image,dish,price,servicesIn,status}) {
+  const [priceWindow,setpriceWindow]=useState(false);
+
+  function Priceupdate(){
+   setpriceWindow(true);
+  }
+
     // let statusAlt=status;
     //  function toggleStatus(status){
     //    statusAlt=!status;
@@ -16,8 +24,8 @@ export default function MenuCard({image,dish,price,servicesIn,status}) {
         <td>{servicesIn.map((p)=>p+" | ")}</td>
         <td className={status?`text-green-400 font-bold`:`text-red-500 font-bold`}>{status?"In-Stcok":"Out of Stack"}</td>
         <td><button className={!status?`bg-green-400 font-bold text-white p-3 w-1/2`:`bg-red-500 font-bold text-white p-3 w-1/2`}>{status?"Out-of-Stock":"In-Stock"}</button></td>
-
-    </tr>
+        <td><button onClick={Priceupdate}>{priceWindow===false?<PriceChangeIcon/>:<PriceUpdate/>}</button></td>
+       </tr>
     
   )
 }
