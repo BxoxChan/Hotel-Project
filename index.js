@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
 // Initialize Database Tables
 tables.createCustomerTable();
 tables.createMenuItemTable();
+tables.createMenuItemServiceTypeTable();
 tables.createOrderTable();
 tables.createServiceTypeTable();
 tables.createCookTable();

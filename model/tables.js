@@ -3,6 +3,7 @@ const db = require('../routes/db');
 
 // Create Customer Table
 const createCustomerTable = () => {
+    // SQL command to create Customer table
     const sql = `
         CREATE TABLE IF NOT EXISTS Customer (
             customer_id INT PRIMARY KEY,
@@ -18,13 +19,14 @@ const createCustomerTable = () => {
 
 // Create MenuItem Table
 const createMenuItemTable = () => {
+    // SQL command to create MenuItem table
     const sql = `
         CREATE TABLE IF NOT EXISTS MenuItem (
-            item_id INT PRIMARY KEY,
+            item_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
             price DECIMAL(10, 2),
-            service_type_id INT,
-            FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
+            image VARCHAR(255),
+            status BOOLEAN DEFAULT true
         )
     `;
     db.query(sql, (err) => {
@@ -33,15 +35,36 @@ const createMenuItemTable = () => {
     });
 };
 
+// Create MenuItemServiceType Table
+const createMenuItemServiceTypeTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS MenuItemServiceType (
+            item_id INT,
+            service_type_id INT,
+            PRIMARY KEY (item_id, service_type_id),
+            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id),
+            FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) {
+            console.error('Error creating MenuItemServiceType table:', err);
+        } else {
+            console.log('MenuItemServiceType table created successfully');
+        }
+    });
+};
+
 // Create Order Table
 const createOrderTable = () => {
+    // SQL command to create Order table
     const sql = `
         CREATE TABLE IF NOT EXISTS OrderTable (
             order_id INT PRIMARY KEY AUTO_INCREMENT,
             customer_id INT,
             item_id INT,
             total_cost DECIMAL(10, 2),
-            status VARCHAR(50),
+            status VARCHAR(50) DEFAULT 'Pending', 
             table_or_room_number VARCHAR(50),
             FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
             FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
@@ -57,7 +80,7 @@ const createOrderTable = () => {
 const createServiceTypeTable = () => {
     const sql = `
         CREATE TABLE IF NOT EXISTS ServiceType (
-            service_type_id INT PRIMARY KEY,
+            service_type_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255)
         )
     `;
@@ -172,6 +195,7 @@ const createMonthlySalesTable = () => {
 module.exports = {
     createCustomerTable,
     createMenuItemTable,
+    createMenuItemServiceTypeTable,
     createOrderTable,
     createServiceTypeTable,
     createCookTable,

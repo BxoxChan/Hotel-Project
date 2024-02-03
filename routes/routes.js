@@ -15,25 +15,64 @@ router.get('/customers', (req, res) => {
   });
 });
 
-// Create Menu Route
+// Updated route for creating a menu item
 router.post('/menu', (req, res) => {
-  const { name, price, service_type_id } = req.body;
+  const { name, price, service_type_ids } = req.body;
 
-  const sql = 'INSERT INTO MenuItem (name, price, service_type_id) VALUES (?, ?, ?)';
-  db.query(sql, [name, price, service_type_id], (err, result) => {
+  // Insert into MenuItem table
+  const menuItemSql = 'INSERT INTO MenuItem (name, price) VALUES (?, ?)';
+  db.query(menuItemSql, [name, price], (err, result) => {
     if (err) {
       console.error('Error creating menu item:', err);
-      res.status(500).send('Error creating menu item');
+      res.status(500).send(`Error creating menu item: ${err.message}`);
     } else {
       console.log('Menu item created successfully');
+      // Insert into MenuItemServiceType table for each service type ID
+      const menuItemId = result.insertId; // Get the auto-generated item_id
+      const menuItemServiceTypeSql = 'INSERT INTO MenuItemServiceType (item_id, service_type_id) VALUES (?, ?)';
+      
+      service_type_ids.forEach(service_type_id => {
+        // Check if the service_type_id exists in the servicetype table
+        const checkServiceTypeSql = 'SELECT * FROM servicetype WHERE service_type_id = ?';
+        db.query(checkServiceTypeSql, [service_type_id], (err, result) => {
+          if (err) {
+            console.error('Error checking service type:', err);
+          } else if (result.length > 0) {
+            // If the service type exists, insert it into the MenuItemServiceType table
+            db.query(menuItemServiceTypeSql, [menuItemId, service_type_id], (err, result) => {
+              if (err) {
+                console.error('Error creating MenuItemServiceType:', err);
+              }
+            });
+          } else {
+            console.error(`Service type ${service_type_id} does not exist`);
+          }
+        });
+      });
       res.status(201).send('Menu item created successfully');
     }
   });
 });
 
-// Get all menu items
+// Get all menu items with their associated service types
 router.get('/menu', (req, res) => {
-  db.query('SELECT * FROM MenuItem', (err, results) => {
+  const sql = `
+    SELECT 
+      mi.item_id,
+      mi.name,
+      mi.price,
+      mi.image,
+      mi.status,
+      GROUP_CONCAT(mst.service_type_id) AS service_type_ids
+    FROM 
+      MenuItem AS mi
+    LEFT JOIN 
+      MenuItemServiceType AS mst ON mi.item_id = mst.item_id
+    GROUP BY 
+      mi.item_id
+  `;
+
+  db.query(sql, (err, results) => {
     if (err) {
       console.error('Error executing query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
