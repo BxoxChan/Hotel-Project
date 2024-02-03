@@ -12,6 +12,7 @@ import AdminMain from './pages/Admin/AdminMain'
 import MenuUpdate from './pages/Admin/MenuUpdate'
 import HotelServicesUpdate from './pages/Admin/HotelServicesUpdate'
 import Orders from './pages/Admin/Orders'
+import QRPage from './pages/QRPage'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Router>
         <Routes>
             <Route path='/' element={<Home/>}/>
+            <Route path='/QR' element={<QRPage/>}/>
             <Route path='/cafe' element={<Cafe/>}/>
             <Route path='/cafe/confirmOrderCafe' element={<CafeConfirm/>}/>
             <Route path='/resturant' element={<Resturant/>}/>
