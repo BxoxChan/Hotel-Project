@@ -72,6 +72,7 @@ router.get('/menu', (req, res) => {
       mi.item_id
   `;
 
+  
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error executing query:', err);
