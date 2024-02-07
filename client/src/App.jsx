@@ -24,7 +24,7 @@ export default function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/QR' element={<QRPage/>}/>
             <Route path='/cafe' element={<Cafe/>}/>
-            <Route path='/cafe/confirmOrderCafe' element={<CafeConfirm/>}/>
+            <Route path='/cafe/cart' element={<CafeConfirm/>}/>
             <Route path='/resturant' element={<Resturant/>}/>
             <Route path='/hotel' element={<Hotel/>}/>
             <Route path='/hotel/orderFood' element={<OrderFood/>}/>

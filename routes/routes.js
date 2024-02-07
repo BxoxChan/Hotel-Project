@@ -85,21 +85,63 @@ router.get('/menu', (req, res) => {
 
 // Create Order Route
 router.post('/orders', (req, res) => {
-  const { customer_id, item_id, total_cost } = req.body;
-  const status = 'New'; // Set the default status to "New"
+  const { customer_id, items } = req.body;
+  const status = 'Pending'; // Set the default status to "Pending"
 
-  const sql = 'INSERT INTO OrderTable (customer_id, item_id, total_cost, status) VALUES (?, ?, ?, ?)';
-  db.query(sql, [customer_id, item_id, total_cost, status], (err, result) => {
+  // Check if the provided customer_id exists in the Customer table
+  const customerQuery = 'SELECT * FROM Customer WHERE customer_id = ?';
+  db.query(customerQuery, customer_id, (err, customerResult) => {
     if (err) {
-      console.error('Error creating order:', err);
+      console.error('Error fetching customer:', err);
       res.status(500).send('Error creating order');
-    } else {
-      console.log('Order created successfully');
-      // Set the response status to 201 Created
-      res.status(201).send('Order created successfully');
+      return;
     }
+
+    if (customerResult.length === 0) {
+      res.status(404).send('Customer not found');
+      return;
+    }
+
+    // Check if items array is not empty
+    if (!Array.isArray(items) || items.length === 0) {
+      res.status(400).send('Items array cannot be empty');
+      return;
+    }
+
+    // Insert the order items into the OrderItem table
+    const insertOrderItemQuery = 'INSERT INTO OrderItem (order_id, item_id) VALUES (?, ?)';
+    let insertPromises = [];
+
+    // Insert each item into the OrderItem table
+    items.forEach(item => {
+      const { item_id } = item;
+      insertPromises.push(new Promise((resolve, reject) => {
+        db.query(insertOrderItemQuery, [order_id, item_id], (err, result) => {
+          if (err) {
+            console.error('Error inserting order item:', err);
+            reject(err);
+          } else {
+            console.log('Order item inserted successfully');
+            resolve(result);
+          }
+        });
+      }));
+    });
+
+    // Execute all insertion promises
+    Promise.all(insertPromises)
+      .then(() => {
+        console.log('All order items inserted successfully');
+        // Set the response status to 201 Created
+        res.status(201).send('Order created successfully');
+      })
+      .catch((err) => {
+        console.error('Error creating order:', err);
+        res.status(500).send('Error creating order');
+      });
   });
 });
+
 
 // Fetch New Order
 router.get('/orders/new', (req, res) => {

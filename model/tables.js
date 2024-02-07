@@ -1,13 +1,12 @@
 // Include your database connection setup here
 const db = require('../routes/db');
 
-// Create Customer Table
 const createCustomerTable = () => {
-    // SQL command to create Customer table
     const sql = `
         CREATE TABLE IF NOT EXISTS Customer (
-            customer_id INT PRIMARY KEY,
+            customer_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
+            phone_number VARCHAR(20),
             qr_code VARCHAR(255)
         )
     `;
@@ -19,7 +18,6 @@ const createCustomerTable = () => {
 
 // Create MenuItem Table
 const createMenuItemTable = () => {
-    // SQL command to create MenuItem table
     const sql = `
         CREATE TABLE IF NOT EXISTS MenuItem (
             item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,24 +55,41 @@ const createMenuItemServiceTypeTable = () => {
 
 // Create Order Table
 const createOrderTable = () => {
-    // SQL command to create Order table
     const sql = `
         CREATE TABLE IF NOT EXISTS OrderTable (
             order_id INT PRIMARY KEY AUTO_INCREMENT,
             customer_id INT,
-            item_id INT,
+            customer_name VARCHAR(255),
+            customer_phone_number VARCHAR(20),
             total_cost DECIMAL(10, 2),
             status VARCHAR(50) DEFAULT 'Pending', 
             table_or_room_number VARCHAR(50),
+            service_type_id INT,
             FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
+            FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
         )
     `;
     db.query(sql, (err) => {
         if (err) console.error('Error creating Order table:', err);
         else console.log('Order table created successfully');
     });
+
+    // Create OrderItem table
+    const createOrderItemTableSql = `
+        CREATE TABLE IF NOT EXISTS OrderItem (
+            order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+            order_id INT,
+            item_id INT,
+            FOREIGN KEY (order_id) REFERENCES OrderTable(order_id),
+            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
+        )
+    `;
+    db.query(createOrderItemTableSql, (err) => {
+        if (err) console.error('Error creating OrderItem table:', err);
+        else console.log('OrderItem table created successfully');
+    });
 };
+
 
 // Create ServiceType Table
 const createServiceTypeTable = () => {
