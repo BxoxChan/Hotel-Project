@@ -15,7 +15,6 @@ export default function MenuList() {
             const response = await axios.get(url);
             console.log('Response data:', response.data); // Log the response data
 
-<<<<<<< HEAD
             // Check if response.data is an array
             if (Array.isArray(response.data)) {
                 const updatedMenuItems = response.data.map(item => ({
@@ -60,7 +59,6 @@ export default function MenuList() {
             </table>
         </div>
     );
-=======
         <div className=' border-2 border-black bg-white font-sans max-h-full overflow-y-scroll mx-5'>
         {/* listStart */}
       {/* <thead className='flex justify-between border-2 border-black font-semibold '> */}
@@ -105,6 +103,5 @@ export default function MenuList() {
          </table>
 
    </div>
-  )
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
+  
 }

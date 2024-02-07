@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import Cafe from '../../src/jailS2.jpg'
-import { NavLink, redirect } from 'react-router-dom'
-
-export default function Home() {
-
-  return (
-    <div className='h-full w-full bg-Cust1'>
-      {/* Header */}
-         <div className='flex justify-between bg-black py-2 px-1 sticky top-0 z-10'>
-          <header className='text-orangeD1 text-2xl font-bold'>Mejban Empire</header>
-          <div className='flex justify-between items-center gap-x-5 mx-1'> 
-            <NavLink to={"/QR"} className='bg-orangeD1 text-white font-bold px-2 rounded-md'>ScanQR</NavLink>
-          <button className='bg-orangeD1 text-white font-bold px-2 rounded-md'>Login</button>
-=======
 import React, { useEffect } from 'react'
 import Cafe from '../../src/jailS2.jpg'
 import { NavLink, redirect ,useNavigate} from 'react-router-dom'
@@ -63,54 +47,27 @@ export default function Home() {
           <option value="admin">Admin</option>
           <option value="cookingStaff">Cook</option>
             </select>
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
           </div>
          </div>
 
           {/* image Slider */}
-<<<<<<< HEAD
-         <div>
-          
-=======
          <div className='w-full flex justify-center bg-black py-5 ' >
           <Corosel/>
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
          </div>
 
          {/* Services */}
 
           <div>
             <header className='text-center text-orangeD1 text-3xl font-bold font-Montserrat'>Services</header>
-<<<<<<< HEAD
-            <div className=' px-2'>
-
-                <div className='w-3/5 mr-auto relative py-2 '>
-=======
             <div className=' px-2 '>
 
                 <div className='w-full mr-auto relative py-2 ' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
                   <img src={Cafe} alt="cafe" className=' brightness-75 rounded-md' />
                   <div className='absolute bottom-5 pl-2 w-full'>
                   <header className=' text-white font-bold text-3xl'>MejBan Jail Cafe</header>
                   <p className='text-white'>Our Jail Theme Cafe with 150+ Items ,<span>perfect place for you to spend some lovely moments</span></p>
                   </div>
                 </div>
-<<<<<<< HEAD
-                <div className='w-3/5 ml-auto  relative py-2'>
-                   <img src={Cafe} alt="cafe" className=' brightness-75 rounded-md' />
-                  <div className='absolute bottom-5 pl-2 w-full'>
-                  <header className=' text-white font-bold text-3xl'>MejBan Resturant</header>
-                  <p className='text-white'>Our Jail Theme Cafe with 150+ Items ,<span>perfect place for you to spend some lovely moments</span></p>
-                  </div>
-                </div>
-
-                <div className='w-3/5 mr-auto  relative py-2'>
-                  <img src={Cafe} alt="cafe" className=' brightness-75 rounded-md' />
-                  <div className='absolute bottom-5 pl-2 w-full'>
-                  <header className=' text-white font-bold text-3xl'>MejBan Hotel</header>
-                  <p className='text-white'>Our Jail Theme Cafe with 150+ Items ,<span>perfect place for you to spend some lovely moments</span></p>
-=======
                 <div className='w-full ml-auto  relative py-2 ' data-aos="fade-left" data-aos-offset="100" data-aos-delay="30">
                    <img src={restaurant} alt="restaurant" className=' brightness-75 rounded-md' />
                   <div className='absolute bottom-5 pl-2 w-full'>
@@ -124,13 +81,10 @@ export default function Home() {
                   <div className='absolute bottom-5 pl-2 w-full'>
                   <header className=' text-white font-bold text-3xl'>MejBan Hotel</header>
                   <p className='text-white'>Hospitality Redefined, Your Home Away from Home.<span>(A.C. ROOMS)</span></p>
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
                   </div>
                 </div>
             </div>
           </div>
-<<<<<<< HEAD
-=======
 
           {/* CustomerReview */}
           <div className='flex flex-col justify-center items-center my-5'>
@@ -144,7 +98,6 @@ export default function Home() {
           </div>
           <PartyHall/>
           <Footer/>
->>>>>>> 01576039773690aa845c064fb22bd63d630d6648
 
     </div>
   )
