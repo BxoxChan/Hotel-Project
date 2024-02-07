@@ -7,6 +7,7 @@ export default {
         orangeD1: "#FF9843",
         brownCust: "#e1d5c9",
         Cust1: "#EFECEC",
+        Custblue: "#211C6A",
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
