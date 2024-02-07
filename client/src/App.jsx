@@ -13,6 +13,11 @@ import MenuUpdate from './pages/Admin/MenuUpdate'
 import HotelServicesUpdate from './pages/Admin/HotelServicesUpdate'
 import Orders from './pages/Admin/Orders'
 import QRPage from './pages/QRPage'
+<<<<<<< HEAD
+=======
+import Admin from './pages/Login Page/Admin'
+import CookingStaff from './pages/Login Page/CookingStaff'
+>>>>>>> 01576039773690aa845c064fb22bd63d630d6648
 
 export default function App() {
   return (
@@ -34,8 +39,10 @@ export default function App() {
             <Route path='menuUpdate' element={<MenuUpdate/>}/>
             <Route path='hotelServices' element={<HotelServicesUpdate/>}/>
             <Route path='orders' element={<Orders/>}/>
-            
             </Route>
+            {/* logIn */}
+            <Route path='/signin/admin' element={<Admin/>}/>
+            <Route path='/signin/cooksPanel' element={<CookingStaff/>}/>
         </Routes>
         </Router>
     </div>

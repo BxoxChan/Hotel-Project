@@ -15,6 +15,7 @@ export default function MenuList() {
             const response = await axios.get(url);
             console.log('Response data:', response.data); // Log the response data
 
+<<<<<<< HEAD
             // Check if response.data is an array
             if (Array.isArray(response.data)) {
                 const updatedMenuItems = response.data.map(item => ({
@@ -59,4 +60,51 @@ export default function MenuList() {
             </table>
         </div>
     );
+=======
+        <div className=' border-2 border-black bg-white font-sans max-h-full overflow-y-scroll mx-5'>
+        {/* listStart */}
+      {/* <thead className='flex justify-between border-2 border-black font-semibold '> */}
+    <table className='w-full h-full table-fixed'>
+      <thead className=' border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
+        <tr>
+         <th>Image</th>
+         <th>Dish</th>
+         <th>Price</th>
+         <th>H/R/C</th>
+         <th>Status</th>
+         <th>Update</th>
+         <th>Price(Updt.)</th>
+        </tr>
+      </thead>
+         {/* orderData Card */}
+        <tbody>
+           {dummyMenu.map((m)=>(
+            <MenuCard
+           image={m.image}
+           dish={m.dish}
+           price={m.price}
+           servicesIn={m.servicesIn}
+           status={m.status}
+           />
+           ))}
+
+        {/* {data.map((p)=>{
+           return( <OrdersDataCard
+        id={p.id}
+        serv={p.serv}
+        order={p.order}
+        customer={p.customer}
+        phone={p.phone}
+        total={p.total}
+        status={p.status}
+        />)
+        })
+        } */}
+       
+        </tbody>
+         </table>
+
+   </div>
+  )
+>>>>>>> 01576039773690aa845c064fb22bd63d630d6648
 }
