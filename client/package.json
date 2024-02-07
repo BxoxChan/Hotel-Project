@@ -17,10 +17,12 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
+    "aos": "^2.3.4",
     "html5-qrcode": "^2.3.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.2"
+    "react-router-dom": "^6.21.2",
+    "react-simple-image-slider": "^2.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
