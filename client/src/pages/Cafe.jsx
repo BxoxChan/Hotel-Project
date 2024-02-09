@@ -64,7 +64,7 @@ export default function Cafe() {
   //   // console.log(tableNo);
   //   // console.log(phone);
   // }
-  
+
   const handleSubmit = (formData) => {
         setshowTable(false);
     // Do something with the form data
@@ -89,7 +89,7 @@ export default function Cafe() {
 
          {
           showTable && 
-          <div className="absolute top-0 w-full  border-2 border-orangeD1 h-3/4 flex items-center justify-center backdrop-brightness-50">
+          <div className="absolute top-0 w-full  border-2 border-orangeD1 h-full flex items-center justify-center backdrop-brightness-50">
             <TableNO onSubmit={handleSubmit}   setTableDetails={setTableDetails} tableDetails={tableDetails}/>
           </div>
           
