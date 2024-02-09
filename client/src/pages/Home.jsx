@@ -10,6 +10,7 @@ import hotel from '../../src/hotel2.jpg';
 import restaurant from '../../src/resturantX.jpg';
 import Footer from '../components/Home/Footer';
 import CustomerReviews from '../components/CustomerReviews';
+import Hotel from '../components/Home/Hotel';
 
 
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
  }
 
   return (
-    <div className='h-full w-full bg-Cust1 relative  overflow-x-hidden'>
+    <div className=' w-full bg-Cust1 relative overflow-x-hidden'>
       {/* Header */}
          <div className='flex justify-between bg-black py-5 px-1 sticky top-0 z-10'>
           <header className='text-orangeD1 text-2xl font-bold'>Mejban Empire</header>
@@ -51,7 +52,7 @@ export default function Home() {
          </div>
 
           {/* image Slider */}
-         <div className='w-full flex justify-center bg-black py-5 ' >
+         <div className='w-full flex justify-center bg-black py-5' >
           <Corosel/>
          </div>
 
@@ -61,14 +62,14 @@ export default function Home() {
             <header className='text-center text-orangeD1 text-3xl font-bold font-Montserrat'>Services</header>
             <div className=' px-2 '>
 
-                <div className='w-full mr-auto relative py-2 ' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
+                <div className='w-full sm:w-1/2 mr-auto relative py-2 ' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
                   <img src={Cafe} alt="cafe" className=' brightness-75 rounded-md' />
                   <div className='absolute bottom-5 pl-2 w-full'>
                   <header className=' text-white font-bold text-3xl'>MejBan Jail Cafe</header>
                   <p className='text-white'>Our Jail Theme Cafe with 150+ Items ,<span>perfect place for you to spend some lovely moments</span></p>
                   </div>
                 </div>
-                <div className='w-full ml-auto  relative py-2 ' data-aos="fade-left" data-aos-offset="100" data-aos-delay="30">
+                <div className='w-full sm:w-1/2 ml-auto  relative py-2 ' data-aos="fade-left" data-aos-offset="100" data-aos-delay="30">
                    <img src={restaurant} alt="restaurant" className=' brightness-75 rounded-md' />
                   <div className='absolute bottom-5 pl-2 w-full'>
                   <header className=' text-white font-bold text-3xl'>MejBan Resturant</header>
@@ -76,7 +77,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className='w-full mr-auto  relative py-2' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
+                <div className='w-full sm:w-1/2 mr-auto  relative py-2' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
                   <img src={hotel} alt="hotel" className='brightness-75 rounded-md h-full' />
                   <div className='absolute bottom-5 pl-2 w-full'>
                   <header className=' text-white font-bold text-3xl'>MejBan Hotel</header>
@@ -86,19 +87,20 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CustomerReview */}
-          <div className='flex flex-col justify-center items-center my-5'>
-            <h1 className='text-center text-3xl font-Montserrat text-orangeD1 pb-5 font-bold'>Customer Reviews</h1>
-          <CustomerReviews/>
-          </div>
+          <PartyHall/>
+          <Hotel/>
 
           {/* //Location */}
           <div data-aos="zoom-in-down" className='my-2 bg-orangeD1'>
           <Location/>
           </div>
-          <PartyHall/>
+          {/* CustomerReview */}
+          <div className='flex flex-col justify-center items-center my-10 '>
+            <h1 className='text-center text-3xl font-Montserrat text-orangeD1 pb-5 font-bold'>Customer Reviews</h1>
+          <CustomerReviews/>
+          {/* <button><a href="">Review Our Services</a></button> */}
+          </div>
           <Footer/>
-
     </div>
   )
 }
