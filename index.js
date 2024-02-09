@@ -52,11 +52,11 @@ io.on('connection', (socket) => {
 });
 
 // Initialize Database Tables
-tables.createCustomerTable();
+tables.createServiceTypeTable();
 tables.createMenuItemTable();
 tables.createMenuItemServiceTypeTable();
 tables.createOrderTable();
-tables.createServiceTypeTable();
+tables.createCustomerTable();
 tables.createCookTable();
 tables.createAdminTable();
 tables.createAdOnServiceTable();
@@ -64,7 +64,6 @@ tables.createCustomerAdServiceTable();
 tables.createDailySalesTable();
 tables.createWeeklySalesTable();
 tables.createMonthlySalesTable();
-
 // Start the server
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

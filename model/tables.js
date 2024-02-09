@@ -208,11 +208,11 @@ const createMonthlySalesTable = () => {
 };
 
 module.exports = {
-    createCustomerTable,
-    createMenuItemTable,
-    createMenuItemServiceTypeTable,
-    createOrderTable,
     createServiceTypeTable,
+    createMenuItemTable,
+    createOrderTable,
+    createMenuItemServiceTypeTable,
+    createCustomerTable,
     createCookTable,
     createAdminTable,
     createAdOnServiceTable,
