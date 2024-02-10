@@ -18,7 +18,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, './client/dist')));
 
 // Define API routes
 app.use('/api', require('./routes/routes'));
