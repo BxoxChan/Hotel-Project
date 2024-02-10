@@ -31,7 +31,7 @@ export default function MenuComp() {
 
   // Render DishCard components
   return (
-    <div className='h-90% border border-black mx-2 p-2 overflow-y-scroll backdrop-brightness-75 backdrop-blur-sm'>
+    <div className='h-3/4 border border-black mx-2 p-2 overflow-y-scroll backdrop-brightness-75 backdrop-blur-sm'>
       {menuItems.map((menuItem) => (
   <DishCard key={menuItem.item_id} menuItem={menuItem} />
 ))}
