@@ -5,7 +5,7 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 export default function CafeConfirm() {
   return (
     <div className='bg-cover h-screen relative'>
-        <header className='text-center bg-orangeD1 text-white font-Ubuntu text-3xl py-5'>MEJBAN <span className='text-4xl font-bold text-black'>Cafe</span></header>
+        <header className='text-center bg-orangeD1 text-white font-Ubuntu text-3xl py-5'>MEJBAN <span className='text-4xl font-bold text-black'>Empire</span></header>
          
          <header className='font-bold text-black text-2xl text-center'>Your Orders</header>
          <div className='border-2 border-black mt-5 mx-2 h-3/5 overflow-y-scroll rounded-sm'>

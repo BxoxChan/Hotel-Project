@@ -81,7 +81,7 @@ export default function Cafe() {
         {/* place order */}
          {
           (tableDetails.table !='' && tableDetails.phone !='' && tableDetails.name !='')?
-            <NavLink  to={"/cafe/confirmOrderCafe"} className ="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center">Cart</NavLink>
+            <NavLink  to={"/cafe/cart"} className ="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center">Cart</NavLink>
           :
           <button className="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center" onClick={handleTableDetails}>Select Table</button>
          }
