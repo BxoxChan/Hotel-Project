@@ -34,13 +34,16 @@ export default function Resturant() {
       </div>
       {/* Place order */}
       {tableDetails.table !== '' && tableDetails.phone !== '' && tableDetails.name !== '' ? (
-        <NavLink to={'/cafe/confirmOrderCafe'} className='bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center'>
+        <NavLink to={'/cafe/confirmOrderCafe'} className='bg-orange-500 text-white w-full absolute bottom-5 py-2 text-2xl text-center'>
           Cart
         </NavLink>
       ) : (
-        <button className='bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center' onClick={handleTableDetails}>
+        <div className='absolute bottom-5 w-full flex justify-center '>
+          <button className='bg-orange-500 text-white w-4/5  py-2 text-2xl rounded-md' onClick={handleTableDetails}>
           Select Table
         </button>
+        </div>
+        
       )}
       {showTable && (
         <div className='absolute top-0 w-full h-full flex items-center justify-center backdrop-brightness-50'>

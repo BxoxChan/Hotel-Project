@@ -67,8 +67,9 @@ export default function Cafe() {
 
   const handleSubmit = (formData) => {
         setshowTable(false);
+        setTableDetails(formData);
     // Do something with the form data
-    console.log(formData);
+    console.log(tableDetails);
   };
 
   return (
@@ -81,9 +82,14 @@ export default function Cafe() {
         {/* place order */}
          {
           (tableDetails.table !='' && tableDetails.phone !='' && tableDetails.name !='')?
-            <NavLink  to={"/cafe/cart"} className ="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center">Cart</NavLink>
+            <NavLink  to={"/cafe/cart"} className ="bg-orange-500 text-white w-full absolute bottom-5 py-2 text-2xl text-center">Cart</NavLink>
           :
-          <button className="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center" onClick={handleTableDetails}>Select Table</button>
+          <div className='absolute bottom-5 w-full flex justify-center '>
+          <button className='bg-orange-500 text-white w-4/5  py-2 text-2xl rounded-md' onClick={handleTableDetails}>
+          Select Table
+        </button>
+        </div>
+          //<button className="bg-orange-500 text-white w-full absolute bottom-0 py-2 text-2xl text-center" onClick={handleTableDetails}>Select Table</button>
          }
 
 
