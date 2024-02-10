@@ -16,9 +16,10 @@ export default function CustomerReviews() {
 ];
   return (
     <>
-         <SimpleImageSlider 
-        width={"90vw"}
-        height={"20vh"}
+        <div className='hidden sm:flex'>
+           <SimpleImageSlider 
+        width={"50vw"}
+        height={"40vh"}
         images={images}
         showBullets={true}
         //showNavs={true}
@@ -26,6 +27,19 @@ export default function CustomerReviews() {
         slideDuration={1}
         style={{border:"5px",borderColor:"white"}}
       />
+        </div>
+        <div className='flex sm:hidden'>
+         <SimpleImageSlider 
+        width={"90vw"}
+        height={"15vh"}
+        images={images}
+        showBullets={true}
+        //showNavs={true}
+        autoPlay={true}
+        slideDuration={1}
+        style={{border:"5px",borderColor:"white"}}
+        />
+        </div>
     </>
   )
 }

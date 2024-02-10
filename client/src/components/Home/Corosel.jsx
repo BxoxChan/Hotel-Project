@@ -14,6 +14,20 @@ export default function Corosel() {
 ];
   return (
     <>
+
+    <div className='hidden sm:flex'>
+          <SimpleImageSlider 
+        width={"80vw"}
+        height={"100vh"}
+        images={images}
+        showBullets={true}
+        showNavs={true}
+        autoPlay={true}
+        slideDuration={1}
+        style={{border:"5px",borderColor:"white"}}
+      />
+      </div>
+    <div className='sm:hidden flex'>
           <SimpleImageSlider 
         width={"90vw"}
         height={"27vh"}
@@ -24,6 +38,7 @@ export default function Corosel() {
         slideDuration={1}
         style={{border:"5px",borderColor:"white"}}
       />
+      </div>
     </>
   )
 }

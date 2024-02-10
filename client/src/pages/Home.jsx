@@ -11,6 +11,7 @@ import restaurant from '../../src/resturantX.jpg';
 import Footer from '../components/Home/Footer';
 import CustomerReviews from '../components/CustomerReviews';
 import Hotel from '../components/Home/Hotel';
+import Services from '../components/Home/Services';
 
 
 export default function Home() {
@@ -34,7 +35,7 @@ export default function Home() {
   return (
     <div className=' w-full bg-Cust1 relative overflow-x-hidden'>
       {/* Header */}
-         <div className='flex justify-between bg-black py-5 px-1 sticky top-0 z-10'>
+         <div className='flex justify-between bg-black py-5 px-1 fixed top-0 z-10 sm:px-10 w-full'>
           <header className='text-orangeD1 text-2xl font-bold'>Mejban Empire</header>
           <div className='flex justify-between items-center gap-x-5 mx-1'> 
             <NavLink to={"/QR"} className='bg-orangeD1 text-white font-bold px-2 rounded-md py-1'>ScanQR</NavLink>
@@ -60,31 +61,7 @@ export default function Home() {
 
           <div>
             <header className='text-center text-orangeD1 text-3xl font-bold font-Montserrat'>Services</header>
-            <div className=' px-2 '>
-
-                <div className='w-full sm:w-1/2 mr-auto relative py-2 ' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
-                  <img src={Cafe} alt="cafe" className=' brightness-75 rounded-md' />
-                  <div className='absolute bottom-5 pl-2 w-full'>
-                  <header className=' text-white font-bold text-3xl'>MejBan Jail Cafe</header>
-                  <p className='text-white'>Our Jail Theme Cafe with 150+ Items ,<span>perfect place for you to spend some lovely moments</span></p>
-                  </div>
-                </div>
-                <div className='w-full sm:w-1/2 ml-auto  relative py-2 ' data-aos="fade-left" data-aos-offset="100" data-aos-delay="30">
-                   <img src={restaurant} alt="restaurant" className=' brightness-75 rounded-md' />
-                  <div className='absolute bottom-5 pl-2 w-full'>
-                  <header className=' text-white font-bold text-3xl'>MejBan Resturant</header>
-                  <p className='text-white'>Our Resturant with 150+ Items ,<span>A Complete Family Restaurant</span></p>
-                  </div>
-                </div>
-
-                <div className='w-full sm:w-1/2 mr-auto  relative py-2' data-aos="fade-right" data-aos-offset="100" data-aos-delay="30">
-                  <img src={hotel} alt="hotel" className='brightness-75 rounded-md h-full' />
-                  <div className='absolute bottom-5 pl-2 w-full'>
-                  <header className=' text-white font-bold text-3xl'>MejBan Hotel</header>
-                  <p className='text-white'>Hospitality Redefined, Your Home Away from Home.<span>(A.C. ROOMS)</span></p>
-                  </div>
-                </div>
-            </div>
+           <Services/>
           </div>
 
           <PartyHall/>
