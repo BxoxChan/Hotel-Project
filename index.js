@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // Define API routes
-app.use('/api', require('./routes/routes'));
+app.use('/', require('./routes/routes'));
 
 // All other routes should serve the React app
 app.get('*', (req, res) => {
