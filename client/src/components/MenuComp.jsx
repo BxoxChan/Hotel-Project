@@ -33,7 +33,7 @@ export default function MenuComp() {
   return (
     <div className='h-90% border border-black mx-2 p-2 overflow-y-scroll backdrop-brightness-75 backdrop-blur-sm'>
       {menuItems.map((menuItem) => (
-  <DishCard key={menuItem.id} menuItem={menuItem} />
+  <DishCard key={menuItem.item_id} menuItem={menuItem} />
 ))}
 
     </div>
