@@ -26,7 +26,7 @@ export default function Resturant() {
   return (
     <div className='bg-resturant bg-cover bg-no-repeat relative h-screen'>
       <header className='text-center text-black  font-Ubuntu text-3xl py-5 bg-orangeD1'>
-        MEJBAN <span className='text-4xl font-bold text-black'>Resturant</span>
+        MEJBAN <span className='text-4xl font-bold text-black'>Restaurant</span>
       </header>
       <div className='h-85% border-2'>
         <SearchBar />
