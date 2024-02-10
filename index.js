@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./routes/routes');
+const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -9,7 +9,7 @@ const tables = require('./model/tables');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 
 app.use(cors()); 
@@ -17,23 +17,15 @@ app.use(cors());
 // Middleware
 app.use(bodyParser.json());
 
-// Use the routes defined in routes.js
-app.use('/', routes);
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
-// QR Routes
-// Hotel portal route
-app.get('/hotel', (req, res) => {
-  res.send('Welcome to the Hotel Portal! Please enter your Room Number.');
-});
+// Define API routes
+app.use('/api', require('./routes/routes'));
 
-// Cafe portal route
-app.get('/cafe', (req, res) => {
-  res.send('Welcome to the Cafe Portal! Please enter your Table Number.');
-});
-
-// Restaurant portal route
-app.get('/restaurant', (req, res) => {
-  res.send('Welcome to the Restaurant Portal! Please enter your Table Number.');
+// All other routes should serve the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/dist/index.html'));
 });
 
 // Socket.IO for real-time notifications
@@ -64,6 +56,7 @@ tables.createCustomerAdServiceTable();
 tables.createDailySalesTable();
 tables.createWeeklySalesTable();
 tables.createMonthlySalesTable();
+
 // Start the server
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
