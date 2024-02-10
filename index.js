@@ -25,7 +25,7 @@ app.use('/api', require('./routes/routes'));
 
 // All other routes should serve the React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/dist/index.html'));
+  res.sendFile(path.join(__dirname+'./client/dist/index.html'));
 });
 
 // Socket.IO for real-time notifications
