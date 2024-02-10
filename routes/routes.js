@@ -33,7 +33,7 @@ router.post('/menu', (req, res) => {
       
       service_type_ids.forEach(service_type_id => {
         // Check if the service_type_id exists in the servicetype table
-        const checkServiceTypeSql = 'SELECT * FROM servicetype WHERE service_type_id = ?';
+        const checkServiceTypeSql = 'SELECT * FROM ServiceType WHERE service_type_id = ?';
         db.query(checkServiceTypeSql, [service_type_id], (err, result) => {
           if (err) {
             console.error('Error checking service type:', err);
@@ -80,6 +80,24 @@ router.get('/menu', (req, res) => {
     } else {
       res.json(results);
     }
+  });
+});
+
+// Create route to change the status of menu item
+router.put('/menu/:id', (req, res) => {
+  const itemId = req.params.id;
+  const { status } = req.body;
+
+  // Query to update the status of the menu item in the database
+  const sql = `UPDATE MenuItem SET status = ? WHERE item_id = ?`;
+  db.query(sql, [status, itemId], (err, result) => {
+      if (err) {
+          console.error('Error updating status of menu item:', err);
+          res.status(500).json({ error: 'Error updating status of menu item' });
+      } else {
+          console.log('Status of menu item updated successfully');
+          res.status(200).json({ message: 'Status updated successfully' });
+      }
   });
 });
 

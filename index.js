@@ -55,8 +55,8 @@ io.on('connection', (socket) => {
 tables.createServiceTypeTable();
 tables.createMenuItemTable();
 tables.createMenuItemServiceTypeTable();
-tables.createOrderTable();
 tables.createCustomerTable();
+tables.createOrderTable();
 tables.createCookTable();
 tables.createAdminTable();
 tables.createAdOnServiceTable();
