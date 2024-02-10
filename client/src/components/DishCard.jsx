@@ -63,8 +63,9 @@ export default function DishCard({menuItem}) {
             <div className='font-bold text-green-500'>₹{menuItem.price}</div>
             {/* Example of displaying service types */}
             {menuItem.service_type_id && Array.isArray(menuItem.service_type_id) && menuItem.service_type_id.join(', ')}
-
-            <div className='bg-black'><Button>ADD</Button></div>
+            <div className='flex justify-start'>
+            <button className='bg-orangeD1 text-white px-2 mr-2 mb-2 rounded-md'>ADD</button>
+            </div>
           </div>
         </div>
       
