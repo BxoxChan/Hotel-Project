@@ -11,15 +11,15 @@ export default function Footer() {
         <nav className="list-none mb-10 mx-2 sm:flex-1">
           <li className='flex justify-between'>
             <span className="text-orangeD1 font-bold ">Mejban Cafe</span>
-            <span>+91 98125 38800,+91 80597 70027</span>
+            <span>+91 98125 38800</span>
           </li>
           <li className='flex justify-between'>
             <span className="text-orangeD1 font-bold">MejBan Hotel</span>
-            <span>+91 98125 38800,+91 80597 70027</span>
+            <span>+91 80597 70027</span>
           </li>
           <li className='flex justify-between'>
             <span className="text-orangeD1 font-bold ">Mejban Restaurant</span>
-            <span>+91 98125 38800,+91 80597 70027</span>
+            <span></span>
           </li>
         </nav>
           <div className='sm:flex-1'>

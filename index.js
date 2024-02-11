@@ -5,7 +5,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const db = require('./routes/db');
 const tables = require('./model/tables');
-
+const generateQRCode = require('./qrGenerator.js'); 
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -21,27 +21,27 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // Define API routes
-app.use('/api', require('./routes/routes'));
+app.use('/', require('./routes/routes'));
+
+// Generate QR codes for specific routes
+const routes = [
+    { name: 'Hotel', url: 'https://mejbanempire.onrender.com/hotel' },
+    { name: 'Cafe', url: 'https://mejbanempire.onrender.com/cafe' },
+    { name: 'Restaurant', url: 'https://mejbanempire.onrender.com/resturant' }
+];
+
+// Generate QR codes for each route
+routes.forEach((route) => {
+    const filename = `${route.name.toLowerCase()}.png`; 
+    generateQRCode(route.url, filename);
+});
 
 // All other routes should serve the React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/dist/index.html'));
+  console.log("Sending file:", path.join(__dirname, 'client/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
-// Socket.IO for real-time notifications
-io.on('connection', (socket) => {
-  console.log('User connected to Socket.IO');
-
-  // Emit a custom event when a client connects
-  io.emit('serverMessage', { message: 'A client has connected to the server' });
-
-  // Handle order notifications
-  // You need to emit events to the cook's panel when an order is placed
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected from Socket.IO');
-  });
-});
 
 // Initialize Database Tables
 tables.createServiceTypeTable();
