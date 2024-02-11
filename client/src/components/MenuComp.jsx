@@ -6,6 +6,7 @@ import { menuRequest } from '../util/requestMethod';
 export default function MenuComp() {
   const [menuItems, setMenuItems] = useState([]);
   const [error, setError] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -20,23 +21,24 @@ export default function MenuComp() {
     fetchMenuItems();
   }, []);
 
-  // Handle loading state
+  const addToCart = (menuItem) => {
+    setCartItems([...cartItems, menuItem]);
+    console.log('Item added to cart:', menuItem);
+  };
+  
   if (menuItems.length === 0 && !error) {
     return <div>Loading...</div>;
   }
 
-  // Handle error state
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  // Render DishCard components
   return (
     <div className='h-3/4 border border-black mx-2 p-2 overflow-y-scroll backdrop-brightness-75 backdrop-blur-sm'>
       {menuItems.map((menuItem) => (
-  <DishCard key={menuItem.item_id} menuItem={menuItem} />
-))}
-
+        <DishCard key={menuItem.item_id} menuItem={menuItem} addToCart={addToCart} />
+      ))}
     </div>
   );
 }
