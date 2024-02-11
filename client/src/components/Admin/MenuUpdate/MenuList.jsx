@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MenuCard from './MenuCard';
+import { menuRequest } from '../../../util/requestMethod';
 
 export default function MenuList() {
     const [menuItems, setMenuItems] = useState([]);
@@ -11,8 +12,13 @@ export default function MenuList() {
 
     const fetchMenuItems = async () => {
         try {
-            const url = 'http://localhost:3000/menu';
-            const response = await axios.get(url);
+           // const url = 'http://localhost:3000/menu';
+
+
+            const response = await menuRequest.get('/');
+
+
+            
             console.log('Response data:', response.data); // Log the response data
 
             // Check if response.data is an array

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DishCard from './DishCard';
 import axios from 'axios';
+import { menuRequest } from '../util/requestMethod';
 
 export default function MenuComp() {
   const [menuItems, setMenuItems] = useState([]);
@@ -9,7 +10,7 @@ export default function MenuComp() {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/menu');
+        const response = await menuRequest.get('/');
         setMenuItems(response.data);
       } catch (error) {
         setError(error.message);
