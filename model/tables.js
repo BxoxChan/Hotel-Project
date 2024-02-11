@@ -1,6 +1,35 @@
 // Include your database connection setup here
 const db = require('../routes/db');
 
+
+// Create AdminLogin Table
+const createAdminLoginTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS AdminLogin (
+            username VARCHAR(255) PRIMARY KEY,
+            password VARCHAR(255)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) console.error('Error creating AdminLogin table:', err);
+        else console.log('AdminLogin table created successfully');
+    });
+};
+
+// Create CookLogin Table
+const createCookLoginTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS CookLogin (
+            username VARCHAR(255) PRIMARY KEY,
+            password VARCHAR(255)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) console.error('Error creating CookLogin table:', err);
+        else console.log('CookLogin table created successfully');
+    });
+};
+
 const createCustomerTable = () => {
     const sql = `
         CREATE TABLE IF NOT EXISTS Customer (
@@ -219,5 +248,7 @@ module.exports = {
     createCustomerAdServiceTable,
     createDailySalesTable,
     createWeeklySalesTable,
-    createMonthlySalesTable
+    createMonthlySalesTable,
+    createAdminLoginTable,
+    createCookLoginTable
 };

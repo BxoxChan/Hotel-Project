@@ -56,6 +56,8 @@ tables.createCustomerAdServiceTable();
 tables.createDailySalesTable();
 tables.createWeeklySalesTable();
 tables.createMonthlySalesTable();
+tables.createAdminLoginTable();
+tables.createCookLoginTable();
 
 // Start the server
 server.listen(PORT, () => {

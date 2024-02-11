@@ -3,6 +3,64 @@ const router = express.Router();
 const db = require('./db');
 
 
+// Route to handle admin login
+router.post('/admin/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Check if username or password is missing
+  if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  // Query the database to check if the provided username and password exist in the AdminLogin table
+  const sql = `SELECT * FROM AdminLogin WHERE username = ? AND password = ?`;
+  db.query(sql, [username, password], (err, results) => {
+      if (err) {
+          console.error('Error checking admin login details:', err);
+          return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      // Check if any rows were returned from the query
+      if (results.length === 1) {
+          // Admin login successful
+          return res.status(200).json({ message: 'Admin login successful' });
+      } else {
+          // Admin login failed
+          return res.status(401).json({ error: 'Invalid username or password' });
+      }
+  });
+});
+
+
+// Route to handle adding cook login details and login authentication
+router.post('/cook/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Check if username or password is missing
+  if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  // Query the database to check if the provided username and password exist in the CookLogin table
+  const sql = `SELECT * FROM CookLogin WHERE username = ? AND password = ?`;
+  db.query(sql, [username, password], (err, results) => {
+      if (err) {
+          console.error('Error checking cook login details:', err);
+          return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      // Check if any rows were returned from the query
+      if (results.length === 1) {
+          // Cook login successful
+          return res.status(200).json({ message: 'Cook login successful' });
+      } else {
+          // Cook login failed
+          return res.status(401).json({ error: 'Invalid username or password' });
+      }
+  });
+});
+
+
 // Get all customers
 router.get('/customers', (req, res) => {
   db.query('SELECT * FROM Customer', (err, results) => {
