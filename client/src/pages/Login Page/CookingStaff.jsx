@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function CookingStaff() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate =useNavigate();
 
     const handleLogin = () => {
         // Make an HTTP POST request to the backend route for cook login
@@ -14,7 +16,10 @@ export default function CookingStaff() {
         .then(response => {
             // Handle successful login
             console.log('Login successful:', response.data);
+           localStorage.setItem('user',username)
+
             // Redirect to another page or set authentication state if needed
+           navigate('/staff/ordersPage')
         })
         .catch(error => {
             // Handle failed login

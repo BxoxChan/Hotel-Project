@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
+import { useNavigate } from 'react-router-dom';
 
 export default function Admin() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate=useNavigate();
     const handleLogin = () => {
         // Make an HTTP POST request to your backend route for admin login
         axios.post('http://localhost:3000/admin/login', {
@@ -15,6 +16,8 @@ export default function Admin() {
             // Handle successful login
             // For example, you can redirect to another page or set authentication state
             console.log('Login successful:', response.data);
+            localStorage.setItem('user',username)
+            navigate('/admin')
         })
         .catch(error => {
             // Handle failed login

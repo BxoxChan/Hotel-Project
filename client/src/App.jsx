@@ -15,6 +15,7 @@ import Orders from './pages/Admin/Orders'
 import QRPage from './pages/QRPage'
 import Admin from './pages/Login Page/Admin'
 import CookingStaff from './pages/Login Page/CookingStaff'
+import PageNotFound from './pages/PageNotFound'
 
 export default function App() {
   return (
@@ -40,6 +41,9 @@ export default function App() {
             {/* logIn */}
             <Route path='/signin/admin' element={<Admin/>}/>
             <Route path='/signin/cooksPanel' element={<CookingStaff/>}/>
+
+            {/* 404 */}
+            <Route path='*' element={<PageNotFound/>}/>
         </Routes>
         </Router>
     </div>
