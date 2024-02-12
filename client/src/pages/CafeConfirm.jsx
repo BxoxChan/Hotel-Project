@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import { Cart } from '../context/OrderContext';
 
 export default function CafeConfirm() {
+
+// new Using Context
+
+  const {cart,setCart}=useContext(Cart);
+
+
   const [cartItems, setCartItems] = useState([]);
 
   const increaseQuantity = (index) => {
@@ -24,8 +31,9 @@ export default function CafeConfirm() {
 
   const calculateTotal = () => {
     let total = 0;
-    cartItems.forEach((item) => {
-      total += item.price * item.quantity;
+    cart.forEach((item) => {
+      // total += item.price * item.quantity;
+       total += Number(item.price) ;
     });
     return total;
   };
@@ -42,7 +50,7 @@ export default function CafeConfirm() {
         </div>
 
         {/* Render cart items */}
-        {cartItems.map((item, index) => (
+        {cart.map((item, index) => (
           <div key={index} className='flex justify-around border-red-500 border py-2'>
             <div className='flex-1 flex items-center font-bold text-3xl'>{item.name}</div>
             <div className='flex-1 flex flex-col justify-center items-center'>
