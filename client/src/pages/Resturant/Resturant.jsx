@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MenuComp from '../../components/MenuComp';
 import SearchBar from '../../components/SearchBar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import TableNO from '../../components/TableNO';
+import { Cart } from '../../context/OrderContext';
 
 export default function Resturant() {
+
+  const{table,setTable}=useContext(Cart);
+  const address=useLocation();
+  const service=address.pathname.split("/")[1]
   const [showTable, setShowTable] = useState(false);
   const [tableDetails, setTableDetails] = useState({
     table: '',
@@ -18,9 +23,12 @@ export default function Resturant() {
 
   const handleSubmit = (formData) => {
     setTableDetails(formData);
+    //localStorage.setItem()
+    //table and details
+    setTable({table:tableDetails,service:service})
     setShowTable(false);
     // Do something with the form data
-    console.log(formData);
+    console.log(table);
   };
 
   return (
@@ -34,7 +42,7 @@ export default function Resturant() {
       </div>
       {/* Place order */}
       {tableDetails.table !== '' && tableDetails.phone !== '' && tableDetails.name !== '' ? (
-        <NavLink to={'/cafe/confirmOrderCafe'} className='bg-orange-500 text-white w-full absolute bottom-5 py-2 text-2xl text-center'>
+        <NavLink to={'/cafe/cart'} className='bg-orange-500 text-white w-full absolute bottom-5 py-2 text-2xl text-center'>
           Cart
         </NavLink>
       ) : (
