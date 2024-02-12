@@ -16,11 +16,13 @@ import QRPage from './pages/QRPage'
 import Admin from './pages/Login Page/Admin'
 import CookingStaff from './pages/Login Page/CookingStaff'
 import PageNotFound from './pages/PageNotFound'
+import { ContextProvider } from './context/OrderContext'
+
 
 export default function App() {
   return (
     <div>
-      <Router>
+            <ContextProvider>
         <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/QR' element={<QRPage/>}/>
@@ -29,6 +31,7 @@ export default function App() {
             <Route path='/resturant' element={<Resturant/>}/>
             <Route path='/hotel' element={<Hotel/>}/>
             <Route path='/hotel/orderFood' element={<OrderFood/>}/>
+             
             <Route path='/hotel/hotelServices' element={<HotelServices/>}/>
             <Route path='/staff/ordersPage' element={<CookingStaffHome/>}/>
             {/* <Route path='/admin/dashboard' element={<AdminMain/>}/> */}
@@ -45,7 +48,7 @@ export default function App() {
             {/* 404 */}
             <Route path='*' element={<PageNotFound/>}/>
         </Routes>
-        </Router>
+             </ContextProvider>
     </div>
   )
 }
