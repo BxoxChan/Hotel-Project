@@ -62,7 +62,7 @@ export default function CafeConfirm() {
     };
   
   
-    axios.post('http://localhost:3000/orders', orderData)
+    axios.post('https://mejbanempire2.onrender.com/orders', orderData)
       .then(response => {
         console.log('Order placed successfully:', response.data);
         navigate('/');
