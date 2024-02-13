@@ -38,21 +38,18 @@ routes.forEach((route) => {
 
 // All other routes should serve the React app
 app.get('*', (req, res) => {
-  console.log("Sending file:", path.join(__dirname, 'client/dist', 'index.html'));
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+    console.log("Sending file:", path.join(__dirname, 'client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
-
 
 // Initialize Database Tables
 tables.createServiceTypeTable();
 tables.createMenuItemTable();
 tables.createMenuItemServiceTypeTable();
-tables.createCustomerTable();
 tables.createOrderTable();
 tables.createCookTable();
 tables.createAdminTable();
 tables.createAdOnServiceTable();
-tables.createCustomerAdServiceTable();
 tables.createDailySalesTable();
 tables.createWeeklySalesTable();
 tables.createMonthlySalesTable();
@@ -61,6 +58,6 @@ tables.createCookLoginTable();
 
 // Start the server
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  io.emit('serverMessage', { message: 'Server is now running' });
+    console.log(`Server is running on port ${PORT}`);
+    io.emit('serverMessage', { message: 'Server is now running' });
 });

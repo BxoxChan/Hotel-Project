@@ -1,47 +1,17 @@
 // Include your database connection setup here
 const db = require('../routes/db');
 
-
-// Create AdminLogin Table
-const createAdminLoginTable = () => {
+// Create ServiceType Table
+const createServiceTypeTable = () => {
     const sql = `
-        CREATE TABLE IF NOT EXISTS AdminLogin (
-            username VARCHAR(255) PRIMARY KEY,
-            password VARCHAR(255)
+        CREATE TABLE IF NOT EXISTS ServiceType (
+            service_type_id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255)
         )
     `;
     db.query(sql, (err) => {
-        if (err) console.error('Error creating AdminLogin table:', err);
-        else console.log('AdminLogin table created successfully');
-    });
-};
-
-// Create CookLogin Table
-const createCookLoginTable = () => {
-    const sql = `
-        CREATE TABLE IF NOT EXISTS CookLogin (
-            username VARCHAR(255) PRIMARY KEY,
-            password VARCHAR(255)
-        )
-    `;
-    db.query(sql, (err) => {
-        if (err) console.error('Error creating CookLogin table:', err);
-        else console.log('CookLogin table created successfully');
-    });
-};
-
-const createCustomerTable = () => {
-    const sql = `
-        CREATE TABLE IF NOT EXISTS Customer (
-            customer_id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255),
-            phone_number VARCHAR(20),
-            qr_code VARCHAR(255)
-        )
-    `;
-    db.query(sql, (err) => {
-        if (err) console.error('Error creating Customer table:', err);
-        else console.log('Customer table created successfully');
+        if (err) console.error('Error creating ServiceType table:', err);
+        else console.log('ServiceType table created successfully');
     });
 };
 
@@ -52,7 +22,8 @@ const createMenuItemTable = () => {
             item_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
             price DECIMAL(10, 2),
-            image VARCHAR(255),
+            image BLOB,
+            type_of_food VARCHAR(50),
             status BOOLEAN DEFAULT true
         )
     `;
@@ -79,58 +50,6 @@ const createMenuItemServiceTypeTable = () => {
         } else {
             console.log('MenuItemServiceType table created successfully');
         }
-    });
-};
-
-// Create Order Table
-const createOrderTable = () => {
-    const sql = `
-        CREATE TABLE IF NOT EXISTS OrderTable (
-            order_id INT PRIMARY KEY AUTO_INCREMENT,
-            customer_id INT,
-            customer_name VARCHAR(255),
-            customer_phone_number VARCHAR(20),
-            total_cost DECIMAL(10, 2),
-            status VARCHAR(50) DEFAULT 'Pending', 
-            table_or_room_number VARCHAR(50),
-            service_type_id INT,
-            FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-            FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
-        )
-    `;
-    db.query(sql, (err) => {
-        if (err) console.error('Error creating Order table:', err);
-        else console.log('Order table created successfully');
-    });
-
-    // Create OrderItem table
-    const createOrderItemTableSql = `
-        CREATE TABLE IF NOT EXISTS OrderItem (
-            order_item_id INT PRIMARY KEY AUTO_INCREMENT,
-            order_id INT,
-            item_id INT,
-            FOREIGN KEY (order_id) REFERENCES OrderTable(order_id),
-            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
-        )
-    `;
-    db.query(createOrderItemTableSql, (err) => {
-        if (err) console.error('Error creating OrderItem table:', err);
-        else console.log('OrderItem table created successfully');
-    });
-};
-
-
-// Create ServiceType Table
-const createServiceTypeTable = () => {
-    const sql = `
-        CREATE TABLE IF NOT EXISTS ServiceType (
-            service_type_id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255)
-        )
-    `;
-    db.query(sql, (err) => {
-        if (err) console.error('Error creating ServiceType table:', err);
-        else console.log('ServiceType table created successfully');
     });
 };
 
@@ -177,23 +96,6 @@ const createAdOnServiceTable = () => {
     });
 };
 
-// Create CustomerAdService Table
-const createCustomerAdServiceTable = () => {
-    const sql = `
-        CREATE TABLE IF NOT EXISTS CustomerAdService (
-            customer_id INT,
-            ad_service_id INT,
-            PRIMARY KEY (customer_id, ad_service_id),
-            FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-            FOREIGN KEY (ad_service_id) REFERENCES AdOnService(ad_service_id)
-        )
-    `;
-    db.query(sql, (err) => {
-        if (err) console.error('Error creating CustomerAdService table:', err);
-        else console.log('CustomerAdService table created successfully');
-    });
-};
-
 // Create DailySales Table
 const createDailySalesTable = () => {
     const sql = `
@@ -236,16 +138,77 @@ const createMonthlySalesTable = () => {
     });
 };
 
+// Create Order Table
+const createOrderTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS OrderTable (
+            order_id INT PRIMARY KEY AUTO_INCREMENT,
+            customer_name VARCHAR(255),
+            customer_phone_number VARCHAR(20),
+            total_cost DECIMAL(10, 2),
+            status VARCHAR(50) DEFAULT 'Pending',
+            table_or_room_number VARCHAR(50),
+            service_type_id INT,
+            FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) console.error('Error creating Order table:', err);
+        else console.log('Order table created successfully');
+    });
+
+    // Create OrderItem table
+    const createOrderItemTableSql = `
+        CREATE TABLE IF NOT EXISTS OrderItem (
+            order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+            order_id INT,
+            item_id INT,
+            FOREIGN KEY (order_id) REFERENCES OrderTable(order_id),
+            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
+        )
+    `;
+    db.query(createOrderItemTableSql, (err) => {
+        if (err) console.error('Error creating OrderItem table:', err);
+        else console.log('OrderItem table created successfully');
+    });
+};
+
+// Create AdminLogin Table
+const createAdminLoginTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS AdminLogin (
+            username VARCHAR(255) PRIMARY KEY,
+            password VARCHAR(255)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) console.error('Error creating AdminLogin table:', err);
+        else console.log('AdminLogin table created successfully');
+    });
+};
+
+// Create CookLogin Table
+const createCookLoginTable = () => {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS CookLogin (
+            username VARCHAR(255) PRIMARY KEY,
+            password VARCHAR(255)
+        )
+    `;
+    db.query(sql, (err) => {
+        if (err) console.error('Error creating CookLogin table:', err);
+        else console.log('CookLogin table created successfully');
+    });
+};
+
 module.exports = {
     createServiceTypeTable,
     createMenuItemTable,
-    createOrderTable,
     createMenuItemServiceTypeTable,
-    createCustomerTable,
+    createOrderTable,
     createCookTable,
     createAdminTable,
     createAdOnServiceTable,
-    createCustomerAdServiceTable,
     createDailySalesTable,
     createWeeklySalesTable,
     createMonthlySalesTable,
