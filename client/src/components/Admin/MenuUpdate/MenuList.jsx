@@ -12,7 +12,6 @@ export default function MenuList() {
 
     const fetchMenuItems = async () => {
         try {
-           // const url = 'http://localhost:3000/menu';
 
 
             const response = await menuRequest.get('/');

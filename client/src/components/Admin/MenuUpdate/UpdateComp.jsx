@@ -37,7 +37,7 @@ export default function UpdateComp() {
         e.preventDefault();
 
         try {
-            const url = 'http://localhost:3000/menu';
+            const url = 'https://mejbanempire2.onrender.com/menu';
             const response = await axios.post(url, {
                 name: form.name,
                 price: form.price,

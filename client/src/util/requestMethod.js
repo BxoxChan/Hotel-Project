@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Base_URL = "http://localhost:3000/";
+const Base_URL = "https://mejbanempire2.onrender.com/";
 
 const menuRequest = axios.create({
   baseURL: Base_URL + "menu",
