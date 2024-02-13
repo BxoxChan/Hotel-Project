@@ -8,10 +8,7 @@ import { ContextProvider } from './context/OrderContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
-      <ContextProvider>
-
     <App />
-      </ContextProvider>
     </Router>
   </React.StrictMode>,
 )

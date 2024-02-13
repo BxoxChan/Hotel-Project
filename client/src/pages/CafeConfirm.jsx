@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { Cart } from '../context/OrderContext';
@@ -6,9 +6,7 @@ import { Cart } from '../context/OrderContext';
 export default function CafeConfirm() {
 
 // new Using Context
-
-  const {cart,setCart}=useContext(Cart);
-
+  const {cart,setCart,order,setOrder,table}=useContext(Cart);
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -38,6 +36,11 @@ export default function CafeConfirm() {
     });
     return total;
   };
+
+  const handleSubmit=()=>{
+    //console.log(order);
+    console.log(order);
+  }
 
   return (
     <div className='bg-cover h-screen relative'>
@@ -76,7 +79,7 @@ export default function CafeConfirm() {
           <div>₹{calculateTotal()}</div>
         </div>
       </div>
-      <button className="bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0">Place Order (₹{calculateTotal()})</button>
+      <button className="bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0" onClick={handleSubmit}>Place Order (₹{calculateTotal()})</button>
     </div>
   );
 }

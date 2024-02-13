@@ -7,7 +7,8 @@ import { Cart } from '../../context/OrderContext';
 
 export default function Resturant() {
 
-  const{table,setTable}=useContext(Cart);
+
+  const{table,setTable,setOrder,cart,order}=useContext(Cart);
   const address=useLocation();
   const service=address.pathname.split("/")[1]
   const [showTable, setShowTable] = useState(false);
@@ -16,6 +17,17 @@ export default function Resturant() {
     phone: '',
     name: '',
   });
+
+  
+   useEffect(()=>{
+     setTable({table:tableDetails,service:service})
+
+    console.log(table);
+
+     setOrder({table:table,cart:cart})
+    //  console.log(order);
+
+   },[cart])
 
   const handleTableDetails = () => {
     setShowTable(true);
