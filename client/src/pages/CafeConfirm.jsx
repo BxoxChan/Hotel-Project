@@ -23,10 +23,11 @@ export default function CafeConfirm() {
   };
 
   const removeItem = (index) => {
-    const updatedCart = cartItems.filter((_, i) => i !== index);
-    setCartItems(updatedCart);
+    const updatedCart = [...cart];
+    updatedCart.splice(index, 1);
+    setCart(updatedCart);
   };
-
+  
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((item) => {
