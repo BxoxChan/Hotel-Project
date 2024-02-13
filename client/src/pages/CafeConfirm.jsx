@@ -1,14 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import axios from 'axios';
 import { Cart } from '../context/OrderContext';
 
 export default function CafeConfirm() {
-
-// new Using Context
-  const {cart,setCart,order,setOrder,table}=useContext(Cart);
-
+  const { cart, setCart, order, setOrder, table } = useContext(Cart);
   const [cartItems, setCartItems] = useState([]);
+  const [totalCost, setTotalCost] = useState(0); // State for total cost
+
+  useEffect(() => {
+    // Calculate total cost whenever cart items change
+    let total = 0;
+    cart.forEach((item) => {
+      total += Number(item.price);
+    });
+    setTotalCost(total);
+  }, [cart]);
 
   const increaseQuantity = (index) => {
     const updatedCart = [...cartItems];
@@ -28,25 +36,46 @@ export default function CafeConfirm() {
     setCart(updatedCart);
   };
   
-  const calculateTotal = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      // total += item.price * item.quantity;
-       total += Number(item.price) ;
-    });
-    return total;
-  };
-
-  const handleSubmit=()=>{
-    //console.log(order);
+  const handleSubmit = () => {
     console.log(order);
-  }
+    const serviceIdMap = {
+      'hotel': 1,
+      'cafe': 2,
+      'restaurant': 3
+    };
+  
+    const selectedService = table.service; 
+    const serviceTypeId = serviceIdMap[selectedService.toLowerCase()]; 
+  
+    const orderData = {
+      customer_name: order.table.table.name,
+      customer_phone_number: order.table.table.phone,
+      total_cost: totalCost,
+      table_or_room_number: order.table.table.table,
+      service_type_id: serviceTypeId,
+      items: cart.map(item => ({
+        item_id: item.item_id, 
+        item_name: item.name
+      }))
+    };
+  
+  
+    axios.post('http://localhost:3000/orders', orderData)
+      .then(response => {
+        console.log('Order placed successfully:', response.data);
+       
+      })
+      .catch(error => {
+        console.error('Error placing order:', error);
+     
+      });
+  };
+  
+
 
   return (
     <div className='bg-cover h-screen relative'>
-      {/* Your existing code... */}
-
-      <div className='border-2 border-black mt-5 mx-2 h-3/5 overflow-y-scroll rounded-sm'>
+          <div className='border-2 border-black mt-5 mx-2 h-3/5 overflow-y-scroll rounded-sm'>
         <hr className='bg-black' />
         <div className='flex justify-around my-2 text-xl font-bold '>
           <div>Items</div>
@@ -76,10 +105,10 @@ export default function CafeConfirm() {
         {/* Total */}
         <div className='w-full border-black border flex justify-between px-2'>
           <div>Total</div>
-          <div>₹{calculateTotal()}</div>
+          <div>₹{totalCost}</div>
         </div>
       </div>
-      <button className="bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0" onClick={handleSubmit}>Place Order (₹{calculateTotal()})</button>
+      <button className="bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0" onClick={handleSubmit}>Place Order (₹{totalCost})</button>
     </div>
   );
 }

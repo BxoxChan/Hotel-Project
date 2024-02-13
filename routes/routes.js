@@ -159,24 +159,21 @@ router.put('/menu/:id', (req, res) => {
   });
 });
 
-// Create Order Route
+// Create a new Order
 router.post('/orders', (req, res) => {
-  const { customer_id, items } = req.body;
-  const status = 'Pending'; // Set the default status to "Pending"
+  const { customer_name, customer_phone_number, total_cost, table_or_room_number, service_type_id, items } = req.body;
+  const status = 'Pending'; 
 
-  // Check if the provided customer_id exists in the Customer table
-  const customerQuery = 'SELECT * FROM Customer WHERE customer_id = ?';
-  db.query(customerQuery, customer_id, (err, customerResult) => {
+  // Insert into OrderTable
+  const insertOrderQuery = 'INSERT INTO OrderTable (customer_name, customer_phone_number, total_cost, table_or_room_number, service_type_id) VALUES (?, ?, ?, ?, ?)';
+  db.query(insertOrderQuery, [customer_name, customer_phone_number, total_cost, table_or_room_number, service_type_id], (err, result) => {
     if (err) {
-      console.error('Error fetching customer:', err);
+      console.error('Error inserting order:', err);
       res.status(500).send('Error creating order');
       return;
     }
-
-    if (customerResult.length === 0) {
-      res.status(404).send('Customer not found');
-      return;
-    }
+  
+    const order_id = result.insertId;
 
     // Check if items array is not empty
     if (!Array.isArray(items) || items.length === 0) {
@@ -185,14 +182,14 @@ router.post('/orders', (req, res) => {
     }
 
     // Insert the order items into the OrderItem table
-    const insertOrderItemQuery = 'INSERT INTO OrderItem (order_id, item_id) VALUES (?, ?)';
+    const insertOrderItemQuery = 'INSERT INTO OrderItem (order_id, item_id, item_name) VALUES (?, ?, ?)';
     let insertPromises = [];
 
     // Insert each item into the OrderItem table
     items.forEach(item => {
-      const { item_id } = item;
+      const { item_id, item_name } = item;
       insertPromises.push(new Promise((resolve, reject) => {
-        db.query(insertOrderItemQuery, [order_id, item_id], (err, result) => {
+        db.query(insertOrderItemQuery, [order_id, item_id, item_name], (err, result) => {
           if (err) {
             console.error('Error inserting order item:', err);
             reject(err);
@@ -217,6 +214,7 @@ router.post('/orders', (req, res) => {
       });
   });
 });
+
 
 
 // Fetch New Order

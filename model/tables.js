@@ -159,12 +159,13 @@ const createOrderTable = () => {
 
     // Create OrderItem table
     const createOrderItemTableSql = `
-        CREATE TABLE IF NOT EXISTS OrderItem (
-            order_item_id INT PRIMARY KEY AUTO_INCREMENT,
-            order_id INT,
-            item_id INT,
-            FOREIGN KEY (order_id) REFERENCES OrderTable(order_id),
-            FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
+    CREATE TABLE IF NOT EXISTS OrderItem (
+        order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+        order_id INT,
+        item_id INT,
+        item_name VARCHAR(255),  -- Added item_name column
+        FOREIGN KEY (order_id) REFERENCES OrderTable(order_id),
+        FOREIGN KEY (item_id) REFERENCES MenuItem(item_id)
         )
     `;
     db.query(createOrderItemTableSql, (err) => {
