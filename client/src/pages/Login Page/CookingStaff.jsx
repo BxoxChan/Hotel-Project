@@ -9,7 +9,7 @@ export default function CookingStaff() {
 
     const handleLogin = () => {
         // Make an HTTP POST request to the backend route for cook login
-        axios.post('http://localhost:3000/cook/login', {
+        axios.post('https://mejbanempire2.onrender.com/login', {
             username: username,
             password: password
         })

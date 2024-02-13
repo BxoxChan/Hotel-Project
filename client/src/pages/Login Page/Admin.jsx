@@ -8,7 +8,7 @@ export default function Admin() {
     const navigate=useNavigate();
     const handleLogin = () => {
         // Make an HTTP POST request to your backend route for admin login
-        axios.post('http://localhost:3000/admin/login', {
+        axios.post('https://mejbanempire2.onrender.com/login', {
             username: username,
             password: password
         })
