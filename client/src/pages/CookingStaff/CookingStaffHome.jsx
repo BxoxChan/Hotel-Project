@@ -10,7 +10,7 @@ export default function CookingStaffHome() {
   }, []);
 
   const fetchNewOrders = async () => {
-    const url = "https://mejbanempire2.onrender.com/new";
+    const url = "https://mejbanempire2.onrender.com/orders/new";
     console.log("Fetching new orders from:", url);
     try {
       const response = await axios.get(url);
