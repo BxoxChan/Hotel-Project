@@ -216,10 +216,14 @@ router.post('/orders', (req, res) => {
 });
 
 
-
 // Fetch New Order
 router.get('/orders/new', (req, res) => {
-  const sql = 'SELECT * FROM OrderTable WHERE status = "New"';
+  const sql = `
+    SELECT ot.order_id, ot.customer_name, ot.customer_phone_number, ot.total_cost, ot.status, ot.table_or_room_number, ot.service_type_id, oi.item_name
+    FROM OrderTable ot
+    INNER JOIN OrderItem oi ON ot.order_id = oi.order_id
+    WHERE ot.status = 'Pending'
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error fetching new orders:', err);
@@ -234,6 +238,9 @@ router.get('/orders/new', (req, res) => {
     }
   });
 });
+
+
+
 
 // Update the order status to Accepted
 router.patch('/orders/accept/:orderId', (req, res) => {

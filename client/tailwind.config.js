@@ -28,6 +28,7 @@ export default {
         jails2: "url('./jailS2.jpg')",
         jails3: "url('./jailS3.png')",
         resturant: "url('./cafeBG.jpg')",
+        hotel: "url('./resturantX.jpg')",
       },
       height: {
         menu: "460px",

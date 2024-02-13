@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import axios from 'axios';
@@ -8,6 +9,7 @@ export default function CafeConfirm() {
   const { cart, setCart, order, setOrder, table } = useContext(Cart);
   const [cartItems, setCartItems] = useState([]);
   const [totalCost, setTotalCost] = useState(0); // State for total cost
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Calculate total cost whenever cart items change
@@ -41,7 +43,7 @@ export default function CafeConfirm() {
     const serviceIdMap = {
       'hotel': 1,
       'cafe': 2,
-      'restaurant': 3
+      'resturant': 3
     };
   
     const selectedService = table.service; 
@@ -63,7 +65,7 @@ export default function CafeConfirm() {
     axios.post('http://localhost:3000/orders', orderData)
       .then(response => {
         console.log('Order placed successfully:', response.data);
-       
+        navigate('/');
       })
       .catch(error => {
         console.error('Error placing order:', error);
