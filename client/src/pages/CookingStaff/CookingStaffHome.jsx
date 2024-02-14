@@ -11,13 +11,14 @@ export default function CookingStaffHome() {
 
   const fetchNewOrders = async () => {
     const url = "http://localhost:3000/orders/new";
-    console.log("Fetching new orders from:", url);
+    //console.log("Fetching new orders from:", url);
     try {
       const response = await axios.get(url);
-      console.log("Response data:", response.data);
+      //console.log("Response data:", response.data);
       if (!response.data || !Array.isArray(response.data)) {
         throw new Error("Invalid data received");
       }
+      //console.log(response.data);
       setNewOrders(response.data);
     } catch (error) {
       console.error("Error fetching new orders:", error);
