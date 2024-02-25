@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import { useNavigate } from 'react-router-dom';
+import { siteRequest } from '../../util/requestMethod';
 
 export default function Admin() {
     const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ export default function Admin() {
     const navigate=useNavigate();
     const handleLogin = () => {
         // Make an HTTP POST request to your backend route for admin login
-        axios.post('http://localhost:3000/admin/login', {
+        siteRequest.post('admin/login', {
             username: username,
             password: password
         })

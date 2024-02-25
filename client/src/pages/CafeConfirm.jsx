@@ -4,6 +4,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import axios from 'axios';
 import { Cart } from '../context/OrderContext';
+import { siteRequest } from '../util/requestMethod';
 
 export default function CafeConfirm() {
   const { cart, setCart, order, setOrder, table } = useContext(Cart);
@@ -62,7 +63,7 @@ export default function CafeConfirm() {
     };
   
   
-    axios.post('http://localhost:3000/orders', orderData)
+    siteRequest.post('orders', orderData)
       .then(response => {
         console.log('Order placed successfully:', response.data);
         navigate('/');
