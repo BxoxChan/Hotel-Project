@@ -20,7 +20,7 @@ export default function Cafe() {
    useEffect(()=>{
      setTable({table:tableDetails,service:service})
 
-    console.log(table);
+    //console.log(table);
 
      setOrder({table:table,cart:cart})
     //  console.log(order);
@@ -38,7 +38,7 @@ export default function Cafe() {
     setTable({table:tableDetails,service:service})
     setShowTable(false);
     // Do something with the form data
-    console.log(table);
+   // console.log(table);
   };
 
   return (

@@ -11,7 +11,7 @@ export default function DishCard({ menuItem }) {
   //   setCartItems([...cartItems,menuItem])
   //   console.log(setCart);
   // };
-console.log(cart);
+//console.log(cart);
   return (
     <div key={menuItem.item_id} className='flex py-2 my-1'>
       <div className='w-1/3 border-2 border-white flex justify-center items-center border-r-0 bg-white rounded-l-md'>

@@ -63,7 +63,8 @@ const OrderComp = ({ order }) => {
       : null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 relative border border-gray-300 w-40 sm:w-full">
+    <div className="bg-white rounded-lg shadow-md p-4 relative border   w-full  border-red-400  sm:w-72 ">
+
       <button className="bg-green-500 text-white py-1 px-2 rounded-md absolute top-2 right-2 hover:bg-green-600 transition duration-300 ease-in-out">
         Accept
       </button>
