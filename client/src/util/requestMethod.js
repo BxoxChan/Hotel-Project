@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Base_URL = "http://www.api.mejbanempire.in/";
+const Base_URL = "https://www.api.mejbanempire.in/";
 
 const menuRequest = axios.create({
   baseURL: Base_URL + "menu",
