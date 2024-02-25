@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { siteRequest } from '../../util/requestMethod';
 
 export default function CookingStaff() {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ export default function CookingStaff() {
 
     const handleLogin = () => {
         // Make an HTTP POST request to the backend route for cook login
-        axios.post('https://mejbanempire.onrender.com/cook/login', {
+        siteRequest.post('cook/login', {
             username: username,
             password: password
         })

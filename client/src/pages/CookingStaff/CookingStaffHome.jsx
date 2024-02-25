@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OrderComp from "../../components/CookingStaff/OrderComp";
+import { siteRequest } from "../../util/requestMethod";
 
 export default function CookingStaffHome() {
   const [newOrders, setNewOrders] = useState([]);
@@ -10,10 +11,10 @@ export default function CookingStaffHome() {
   }, []);
 
   const fetchNewOrders = async () => {
-    const url = "https://mejbanempire.onrender.com/orders/new";
-    console.log("Fetching new orders from:", url);
+   // const url = "https://mejbanempire.onrender.com/orders/new";
+    console.log("Fetching new orders from:", 'url');
     try {
-      const response = await axios.get(url);
+      const response = await siteRequest.get('orders/new');
       console.log("Response data:", response.data);
       if (!response.data || !Array.isArray(response.data)) {
         throw new Error("Invalid data received");

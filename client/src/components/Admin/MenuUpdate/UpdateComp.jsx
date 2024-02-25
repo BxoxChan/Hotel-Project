@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { siteRequest } from '../../../util/requestMethod';
 
 export default function UpdateComp() {
     const initialFormState = {
@@ -37,8 +38,8 @@ export default function UpdateComp() {
         e.preventDefault();
 
         try {
-            const url = 'https://mejbanempire.onrender.com/menu';
-            const response = await axios.post(url, {
+           // const url = 'https://mejbanempire.onrender.com/menu';
+            const response = await siteRequest.post('menu', {
                 name: form.name,
                 price: form.price,
                 service_type_ids: form.service_type_ids,
