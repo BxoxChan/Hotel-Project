@@ -34,11 +34,11 @@ export default function CookingStaffHome() {
         Orders
       </h1>
       <div className="h-4/5 mt-2 mx-2">
-        <div className="h-1/2 border-2 border-red-400">
+        <div className=" h-full  sm:h-3/4 sm:border-none">
           <h1 className="text-white text-xl bg-orange-400 font-bold">
             Orders in Queue...
           </h1>
-          <div className="h-90% w-full flex overflow-x-scroll snap-x py-2">
+          <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
           {newOrders.reduce((acc, order) => {
   // Find the index of the order with the same order_id
   const existingOrderIndex = acc.findIndex(item => item.order_id === order.order_id);
@@ -61,7 +61,7 @@ export default function CookingStaffHome() {
   }
   return acc;
 }, []).map((order, index) => (
-  <div className="w-1/2 mx-1" key={`${order.order_id}-${index}`}>
+  <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
     <OrderComp order={order} key={order.order_id} />
   </div>
 ))}
