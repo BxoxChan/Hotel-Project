@@ -25,9 +25,9 @@ app.use('/', require('./routes/routes'));
 
 // Generate QR codes for specific routes
 const routes = [
-    { name: 'Hotel', url: 'https://mejbanempire.onrender.com/hotel' },
-    { name: 'Cafe', url: 'https://mejbanempire.onrender.com/cafe' },
-    { name: 'Restaurant', url: 'https://mejbanempire.onrender.com/resturant' }
+    { name: 'Hotel', url: 'https://mejbanempire.in/hotel' },
+    { name: 'Cafe', url: 'https://mejbanempire.in/cafe' },
+    { name: 'Restaurant', url: 'https://mejbanempire.in/resturant' }
 ];
 
 // Generate QR codes for each route
