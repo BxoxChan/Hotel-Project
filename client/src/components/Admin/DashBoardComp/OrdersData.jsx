@@ -4,13 +4,13 @@ import {data} from "../../../util/data"; //dummy data
 
 export default function OrdersData() {
   return (
-    <div className=' border-2 border-black bg-white font-sans max-h-full overflow-y-scroll mx-5'>
+    <div className=' border-2 border-black bg-white font-sans max-h-full overflow-y-scroll sm:mx-5'>
         {/* listStart */}
       {/* <thead className='flex justify-between border-2 border-black font-semibold '> */}
-    <table className='w-full'>
-      <thead className=' border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
-        <tr>
-         <th>ID</th>
+    <table className='w-full '>
+      <thead className='border-black font-semibold sm:table-fixed  text-left bg-orangeD1 sticky top-0'>
+        <tr className=''>
+         <th className=''>ID</th>
          <th>Service</th> 
         <th>Customer</th>
         <th>Orders</th>
@@ -20,7 +20,7 @@ export default function OrdersData() {
         </tr>
       </thead>
          {/* orderData Card */}
-        <tbody>
+        <tbody className=''>
         {data.map((p)=>{
            return( <OrdersDataCard
         id={p.id}

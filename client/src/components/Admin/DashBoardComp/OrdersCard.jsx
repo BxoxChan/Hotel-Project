@@ -5,7 +5,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 export default function OrdersCard({type}) {
   return (
-    <div className='border-2 border-black flex flex-col justify-center h-1/2 w-1/5 bg-white rounded-md'>
+    <div className='border-2 border-black flex flex-col justify-center h-1/2 sm:w-1/5 bg-white rounded-md'>
       <div className='flex justify-center'>
           {
            type=="cafe" ? <LocalCafeIcon/> :  type=="resturant" ? <RestaurantIcon/> :<HotelIcon/> 
