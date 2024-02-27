@@ -53,9 +53,9 @@ export default function UpdateComp() {
     };
 
     return (
-        <div className='bg-white w-4/5 h-4/5 rounded-md drop-shadow-md p-2'>
+        <div className='bg-white sm:w-4/5 sm:h-4/5 rounded-md drop-shadow-md p-2'>
             <h1 className='text-xl font-Raleway underline'>Add a new Dish</h1>
-            <form className='h-4/5 border-2 w-full flex'>
+            <form className='h-4/5 border-2 w-full sm:flex'>
                 {/* Left Side */}
                 <div className='flex-1 flex flex-col items-center justify-evenly'>
                     <input
@@ -130,7 +130,7 @@ export default function UpdateComp() {
                   {/* button */}
                   <div className='flex justify-center pt-5'>
                     <button
-                      className='bg-orangeD1 p-2 px-5 rounded-md hover:bg-orange-600'
+                      className='bg-orangeD1 p-2 px-5 rounded-md hover:bg-orange-600 my-2 sm:my-0'
                       onClick={onSubmit}
                     >
                       Add

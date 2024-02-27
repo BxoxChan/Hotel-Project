@@ -18,7 +18,7 @@ export default function MenuList() {
 
 
             
-            console.log('Response data:', response.data); // Log the response data
+            //console.log('Response data:', response.data); // Log the response data
 
             // Check if response.data is an array
             if (Array.isArray(response.data)) {
@@ -37,12 +37,12 @@ export default function MenuList() {
         }
     };
     return (
-        <div className='border-2 border-black bg-white font-sans max-h-full overflow-y-scroll mx-5'>
+        <div className='border-2 border-black bg-white font-sans max-h-full overflow-y-scroll sm:mx-5'>
             <table className='w-full h-full table-fixed'>
                 <thead className='border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
-                    <tr>
+                    <tr className='w-full '>
                         <th>Image</th>
-                        <th>Dish</th>
+                        <th className='w-1/5 '>Dish</th>
                         <th>Price</th>
                         <th>H/R/C</th>
                         <th>Status</th>
