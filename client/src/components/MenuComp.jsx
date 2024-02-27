@@ -4,7 +4,7 @@ import axios from 'axios';
 import { menuRequest } from '../util/requestMethod';
 import { Cart } from '../context/OrderContext';
 
-export default function MenuComp() {
+export default function MenuComp({service}) {
   const{filter}=useContext(Cart);
   const [menuItems, setMenuItems] = useState([]);
   const [error, setError] = useState(null);
@@ -57,9 +57,23 @@ export default function MenuComp() {
     return <div>Error: {error}</div>;
   }
 
+  //Segrigation of menu based on Service Type
+  var serType=null;
+
+  if(service==='cafe') {
+    serType='2'; 
+  }else if(service==='resturant'){
+    serType='3';
+  }else if(service==='hotel'){
+    serType='1';
+  }
+
+  //menuItems.map((a)=>console.log((a.service_type_ids.split(","))));
+
+
   return (
     <div className='h-3/4 border border-black mx-2 p-2 overflow-y-scroll backdrop-brightness-75 backdrop-blur-sm'>
-      {menuItems?.filter((data)=>data.name.toLowerCase().includes(filter.toLowerCase())).map((menuItem) => (
+      {menuItems?.filter((data)=>data.service_type_ids.split(",").includes(serType)).filter((data)=>data.name.toLowerCase().includes(filter.toLowerCase())).map((menuItem) => (
         <DishCard key={menuItem.item_id} menuItem={menuItem}  cartItems={cartItems} setCartItems={setCartItems} />
       ))}
     </div>

@@ -20,7 +20,7 @@ export default function OrderFood() {
    useEffect(()=>{
      setTable({table:tableDetails,service:service})
 
-    console.log(table);
+    //console.log(table);
 
      setOrder({table:table,cart:cart})
     //  console.log(order);
@@ -46,9 +46,9 @@ export default function OrderFood() {
       <header className='text-center text-black  font-Ubuntu text-3xl py-5 bg-orangeD1'>
         MEJBAN <span className='text-4xl font-bold text-black'>Hotel</span>
       </header>
-      <div className='h-85% border-2'>
+      <div className='h-85% '>
         <SearchBar />
-        <MenuComp />
+        <MenuComp service={service}/>
       </div>
       {/* Place order */}
       {tableDetails.table !== '' && tableDetails.phone !== '' && tableDetails.name !== '' ? (
@@ -58,7 +58,7 @@ export default function OrderFood() {
       ) : (
         <div className='absolute bottom-5 w-full flex justify-center '>
           <button className='bg-orange-500 text-white w-4/5  py-2 text-2xl rounded-md' onClick={handleTableDetails}>
-          Select Table
+          Select Room
         </button>
         </div>
         

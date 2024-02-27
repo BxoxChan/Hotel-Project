@@ -46,7 +46,7 @@ export default function Cafe() {
       <header className='text-center bg-black font-Ubuntu text-3xl py-5 text-orangeD1'>MEJBAN <span className="text-white text-4xl font-bold ">Jail</span> <span className='text-4xl font-bold text-orangeD1'>Cafe</span></header>
       <div className="h-85%">
         <SearchBar />
-        <MenuComp />
+        <MenuComp service={service} />
       </div>
 
 

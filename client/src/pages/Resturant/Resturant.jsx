@@ -50,7 +50,7 @@ export default function Resturant() {
       </header>
       <div className='h-85% border-2'>
         <SearchBar />
-        <MenuComp />
+        <MenuComp service={service}/>
       </div>
       {/* Place order */}
       {tableDetails.table !== '' && tableDetails.phone !== '' && tableDetails.name !== '' ? (
