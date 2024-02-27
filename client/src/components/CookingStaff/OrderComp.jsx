@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { siteRequest } from "../../util/requestMethod";
 
 const OrderComp = ({ order }) => {
+  const [acceptMessage, setAcceptMessage] = useState(""); // State to manage the accept message
+
+  // Function to handle the acceptance of the order
+  const handleAcceptOrder = async () => {
+    try {
+      const response = await siteRequest.patch(`orders/accept/${order.order_id}`);
+      console.log(response.data); 
+      setAcceptMessage("Order is Accepted Successfully");
+    } catch (error) {
+      console.error('Error accepting order:', error);
+    }
+  };
+
   // Function to determine the prefix based on the service type ID
   const getServiceTypePrefix = () => {
     switch (order.service_type_id) {
@@ -63,9 +78,11 @@ const OrderComp = ({ order }) => {
       : null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 relative border   w-full  border-red-400  sm:w-72 ">
-
-      <button className="bg-green-500 text-white py-1 px-2 rounded-md absolute top-2 right-2 hover:bg-green-600 transition duration-300 ease-in-out">
+    <div className="bg-white rounded-lg shadow-md p-4 relative border w-full border-red-400 sm:w-72 ">
+      <button
+        onClick={handleAcceptOrder}
+        className="bg-green-500 text-white py-1 px-2 rounded-md absolute top-2 right-2 hover:bg-green-600 transition duration-300 ease-in-out"
+      >
         Accept
       </button>
       <h2 className="text-lg font-bold mb-2 text-gray-800">
