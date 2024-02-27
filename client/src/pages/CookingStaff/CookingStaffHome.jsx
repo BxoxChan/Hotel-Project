@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import OrderComp from "../../components/CookingStaff/OrderComp";
 import { siteRequest } from "../../util/requestMethod";
 
 export default function CookingStaffHome() {
   const [newOrders, setNewOrders] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
 
   useEffect(() => {
     fetchNewOrders();
+    fetchOrderHistory();
+    const intervalId = setInterval(fetchNewOrders, 5000); // Fetch new orders every 5 seconds
+    return () => clearInterval(intervalId);
   }, []);
 
   const fetchNewOrders = async () => {
-
-   // const url = "https://mejbanempire.onrender.com/orders/new";
-    console.log("Fetching new orders from:", 'url');
     try {
       const response = await siteRequest.get('orders/new');
-      console.log("Response data:", response.data);
       if (!response.data || !Array.isArray(response.data)) {
         throw new Error("Invalid data received");
       }
-      //console.log(response.data);
       setNewOrders(response.data);
     } catch (error) {
       console.error("Error fetching new orders:", error);
     }
   };
+
+  const fetchOrderHistory = async () => {
+    try {
+      const response = await siteRequest.get('orders/history'); // Update the endpoint to match the server route
+      if (!response.data || !Array.isArray(response.data)) {
+        throw new Error("Invalid data received");
+      }
+      setOrderHistory(response.data); // Set order history directly from the response
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    }
+  };
+  
 
   return (
     <div className="h-screen overflow-y-scroll">
@@ -36,70 +47,45 @@ export default function CookingStaffHome() {
         Orders
       </h1>
       <div className="h-4/5 mt-2 mx-2">
-        <div className=" h-full  sm:h-3/4 sm:border-none">
+        <div className="h-full sm:h-3/4 sm:border-none">
           <h1 className="text-white text-xl bg-orange-400 font-bold">
             Orders in Queue...
           </h1>
           <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
-          {newOrders.reduce((acc, order) => {
-  // Find the index of the order with the same order_id
-  const existingOrderIndex = acc.findIndex(item => item.order_id === order.order_id);
-
-  // If the order with the same order_id exists
-  if (existingOrderIndex !== -1) {
-    // Check if the item_name already exists in the item_names array
-    const existingItemIndex = acc[existingOrderIndex].item_names.findIndex(itemName => itemName === order.item_name);
-    
-    if (existingItemIndex === -1) {
-      // Add the item_name to the item_names array
-      acc[existingOrderIndex].item_names.push(order.item_name);
-    }
-  } else {
-    // Create a new order object
-    acc.push({
-      ...order,
-      item_names: [order.item_name] // Create an array with the item_name
-    });
-  }
-  return acc;
-}, []).map((order, index) => (
-  <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
-    <OrderComp order={order} key={order.order_id} />
-  </div>
-))}
+            {newOrders.reduce((acc, order) => {
+              const existingOrderIndex = acc.findIndex(item => item.order_id === order.order_id);
+              if (existingOrderIndex !== -1) {
+                const existingItemIndex = acc[existingOrderIndex].item_names.findIndex(itemName => itemName === order.item_name);
+                if (existingItemIndex === -1) {
+                  acc[existingOrderIndex].item_names.push(order.item_name);
+                }
+              } else {
+                acc.push({
+                  ...order,
+                  item_names: [order.item_name]
+                });
+              }
+              return acc;
+            }, []).reverse().map((order, index) => ( // Reverse the array before mapping
+              <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
+                <OrderComp order={order} key={order.order_id} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="h-full sm:h-3/4 sm:border-none">
+          <h1 className="text-white text-xl bg-orange-400 font-bold">
+            Accepted Order
+          </h1>
+          <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
+            {orderHistory.map((order, index) => (
+              <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
+                <OrderComp order={order} key={order.order_id} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-//         {/* Order History */}
-//         {/* <div className='h-1/2 border-2 border-red-400 mt-2'>
-//           <h1 className='text-white text-xl bg-red-500'>Orders History...</h1>
-//           <div className='w-full h-90% border-black border-2 overflow-y-scroll p-2'>
-//             <AcceptedOrder accept={true} complete={false} paid={false}/>
-//             <AcceptedOrder accept={true} complete={true} paid={false}/>
-//             <AcceptedOrder accept={true} complete={true} paid={true}/>
-//           </div>
-//         </div> */}
-//       </div>
-//     </div>
-//   );
-// }
-
-{
-  /* Order Processing */
-}
-{
-  /* <div>
-  <div className='h-1/2 border-2 border-red-400 mt-2'>
-    <h1 className='text-white text-xl bg-gray-400'>Orders Processing...</h1>
-      <div className='w-full h-90% border-black border-2 overflow-y-scroll p-2'>
-          <OrderComp/>
-          <OrderComp/>
-          <OrderComp/>
-      </div>
-    </div>
-</div> */
 }

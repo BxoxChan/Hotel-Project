@@ -239,9 +239,6 @@ router.get('/orders/new', (req, res) => {
   });
 });
 
-
-
-
 // Update the order status to Accepted
 router.patch('/orders/accept/:orderId', (req, res) => {
   const orderId = req.params.orderId;
@@ -274,7 +271,7 @@ router.patch('/orders/complete/:orderId', (req, res) => {
 
 // Fetch order history
 router.get('/orders/history', (req, res) => {
-  const sql = 'SELECT * FROM OrderTable WHERE status = "Completed"';
+  const sql = 'SELECT * FROM OrderTable WHERE status = "Accepted"';
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error fetching order history:', err);
