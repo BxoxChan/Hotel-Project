@@ -5,6 +5,7 @@ import { siteRequest } from "../../util/requestMethod";
 export default function CookingStaffHome() {
   const [newOrders, setNewOrders] = useState([]);
   const [orderHistory, setOrderHistory] = useState([]);
+  const [maxOrderId, setMaxOrderId] = useState(0); // Initialize maxOrderId
 
   useEffect(() => {
     fetchNewOrders();
@@ -15,6 +16,17 @@ export default function CookingStaffHome() {
     }, 2000); // Fetch new orders and order history every 5 seconds
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    // Check for new orders and show notifications if new orders arrive
+    if (newOrders.length > 0) {
+      const newMaxOrderId = Math.max(...newOrders.map(order => order.order_id)); // Find the maximum order ID in new orders
+      if (newMaxOrderId > maxOrderId) {
+        showNotification();
+        setMaxOrderId(newMaxOrderId); // Update maxOrderId
+      }
+    }
+  }, [newOrders, maxOrderId]);
 
   const fetchNewOrders = async () => {
     try {
@@ -39,6 +51,21 @@ export default function CookingStaffHome() {
       console.error("Error fetching order history:", error);
     }
   };  
+
+  const showNotification = () => {
+    if (Notification.permission === "granted") {
+      // If notification permission is granted, show the notification
+      new Notification("New orders have arrived!");
+    } else if (Notification.permission !== "denied") {
+      // Request permission from the user to show notifications
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          new Notification("New orders have arrived!");
+        }
+      });
+    }
+  };
+
 
   return (
     <div className="h-screen overflow-y-scroll">
