@@ -66,7 +66,8 @@ export default function CafeConfirm() {
     siteRequest.post('orders', orderData)
       .then(response => {
         console.log('Order placed successfully:', response.data);
-        navigate('/');
+        setTimeout(()=>navigate('/'),3000);
+        
       })
       .catch(error => {
         console.error('Error placing order:', error);
