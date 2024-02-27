@@ -6,7 +6,7 @@ export default function OrdersTable({comp}) {
   return (
     <>
     {/* Default Comp is  Cafe*/}
-    <table className='w-full h-full table-fixed '>
+    <table className='sm:w-full  h-full sm:table-fixed '>
       <thead className=' border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
         <tr>
         <th>ID</th>
@@ -36,6 +36,7 @@ export default function OrdersTable({comp}) {
           )).map((p)=>(
         <OrderCardComp
          id={p.id}
+         //key={p.id}
         serv={p.serv}
         order={p.order}
         customer={p.customer}
