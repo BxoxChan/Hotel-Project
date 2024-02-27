@@ -16,7 +16,7 @@ export default function CookingStaff() {
         })
         .then(response => {
             // Handle successful login
-            console.log('Login successful:', response.data);
+           // console.log('Login successful:', response.data);
            localStorage.setItem('user',username)
 
             // Redirect to another page or set authentication state if needed
