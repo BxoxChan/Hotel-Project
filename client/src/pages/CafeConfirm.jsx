@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Cart } from '../context/OrderContext';
 import { siteRequest } from '../util/requestMethod';
 
 export default function CafeConfirm() {
   const { cart, setCart, order, setOrder, table } = useContext(Cart);
   const [cartItems, setCartItems] = useState([]);
-  const [totalCost, setTotalCost] = useState(0); // State for total cost
+  const [totalCost, setTotalCost] = useState(0); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Calculate total cost whenever cart items change
     let total = 0;
     cart.forEach((item) => {
       total += Number(item.price);
@@ -66,20 +66,20 @@ export default function CafeConfirm() {
     siteRequest.post('orders', orderData)
       .then(response => {
         console.log('Order placed successfully:', response.data);
+        toast.success('Order placed successfully!'); // Display success toast
         setTimeout(()=>navigate('/'),3000);
         
       })
       .catch(error => {
         console.error('Error placing order:', error);
-     
+        toast.error('Error placing order'); // Display error toast
       });
   };
-  
-
 
   return (
     <div className='bg-cover h-screen relative'>
-          <div className='border-2 border-black mt-5 mx-2 h-3/5 overflow-y-scroll rounded-sm'>
+      <ToastContainer /> {/* Include the ToastContainer */}
+      <div className='border-2 border-black mt-5 mx-2 h-3/5 overflow-y-scroll rounded-sm'>
         <hr className='bg-black' />
         <div className='flex justify-around my-2 text-xl font-bold '>
           <div>Items</div>
