@@ -75,7 +75,7 @@ export default function CookingStaffHome() {
         </div>
         <div className="h-full sm:h-3/4 sm:border-none">
           <h1 className="text-white text-xl bg-orange-400 font-bold">
-            Order History
+            Accepted Order
           </h1>
           <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
             {orderHistory.map((order, index) => (
