@@ -1,35 +1,27 @@
 import React, { useState, useEffect } from "react";
 import OrderComp from "../../components/CookingStaff/OrderComp";
-import AcceptedOrder from "../../components/CookingStaff/AcceptedOrder";
 import { siteRequest } from "../../util/requestMethod";
 
 export default function CookingStaffHome() {
   const [newOrders, setNewOrders] = useState([]);
-  const [orderHistory, setOrderHistory] = useState([]);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const newOrdersResponse = await siteRequest.get('orders/new');
-        const orderHistoryResponse = await siteRequest.get('orders/history');
-        
-        if (!newOrdersResponse.data || !Array.isArray(newOrdersResponse.data) ||
-            !orderHistoryResponse.data || !Array.isArray(orderHistoryResponse.data)) {
-          throw new Error("Invalid data received");
-        }
-        
-        setNewOrders(newOrdersResponse.data);
-        setOrderHistory(orderHistoryResponse.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-
-    fetchOrders();
-
-    const intervalId = setInterval(fetchOrders, 2000); // Fetch orders every 5 seconds
+    fetchNewOrders();
+    const intervalId = setInterval(fetchNewOrders, 2000); // Fetch new orders every 5 seconds
     return () => clearInterval(intervalId);
   }, []);
+
+  const fetchNewOrders = async () => {
+    try {
+      const response = await siteRequest.get('orders/new');
+      if (!response.data || !Array.isArray(response.data)) {
+        throw new Error("Invalid data received");
+      }
+      setNewOrders(response.data);
+    } catch (error) {
+      console.error("Error fetching new orders:", error);
+    }
+  };
 
   return (
     <div className="h-screen overflow-y-scroll">
@@ -59,27 +51,13 @@ export default function CookingStaffHome() {
                 });
               }
               return acc;
-            }, []).reverse().map((order, index) => (
+            }, []).reverse().map((order, index) => ( // Reverse the array before mapping
               <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
                 <OrderComp order={order} key={order.order_id} />
               </div>
             ))}
           </div>
         </div>
-        {/* <div className="h-full sm:h-3/4 sm:border-none">
-          <h1 className="text-white text-xl bg-orange-400 font-bold">
-            Accepted Orders
-          </h1>
-          <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
-            {orderHistory
-              .filter(order => order.status === "Accepted")
-              .map((order, index) => (
-                <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
-                  <AcceptedOrder order={order} key={order.order_id} />
-                </div>
-              ))}
-          </div>
-        </div> */}
       </div>
     </div>
   );
