@@ -66,7 +66,7 @@ export default function CookingStaffHome() {
             ))}
           </div>
         </div>
-        <div className="h-full sm:h-3/4 sm:border-none">
+        {/* <div className="h-full sm:h-3/4 sm:border-none">
           <h1 className="text-white text-xl bg-orange-400 font-bold">
             Accepted Orders
           </h1>
@@ -79,7 +79,7 @@ export default function CookingStaffHome() {
                 </div>
               ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
