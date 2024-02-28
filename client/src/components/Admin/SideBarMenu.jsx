@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function SideBarMenu() {
+  const navigate=useNavigate();
   return (
     <div className='sm:h-full relative bg-white'>
         <header className='font-bold text-center bg-black text-orangeD1 font-Montserrat  py-2 '>MejBan</header>
@@ -25,7 +26,7 @@ export default function SideBarMenu() {
             Admin <span className='text-gray-500 text-xs'>{"#Akash"}</span>
            </div>
            <hr className='bg-black h-px my-2 w-4/5 sm:flex hidden'/>
-           <button className='bg-red-500 text-white w-fit rounded-sm p-1 sm:px-1'>Logout</button>
+           <button className='bg-red-500 text-white w-fit rounded-sm p-1 sm:px-1' onClick={()=>(navigate('/'))}>Logout</button>
         </footer>
         
     </div>
