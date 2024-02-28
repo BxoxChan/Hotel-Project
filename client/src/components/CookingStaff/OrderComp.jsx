@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { siteRequest } from "../../util/requestMethod";
 
 const OrderComp = ({ order }) => {
@@ -42,7 +41,6 @@ const OrderComp = ({ order }) => {
   const groupItemsByOrderId = (items) => {
     const groupedItems = {};
     if (items) {
-      // console.log(items);
       items.forEach((item) => {
         if (!groupedItems[item.order_id]) {
           groupedItems[item.order_id] = [];
@@ -51,16 +49,8 @@ const OrderComp = ({ order }) => {
         }
       });
     }
-    // console.log(groupedItems);
     return groupedItems;
   };
-
-  //console.log(order);
-
-  // Group items by order_id
-  // const groupedItems = groupItemsByOrderId(order);
-  // console.log(groupedItems);
-  //console.log(order.items);
 
   // Render items list
   const itemsList =
