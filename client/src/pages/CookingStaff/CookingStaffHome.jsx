@@ -4,12 +4,10 @@ import { siteRequest } from "../../util/requestMethod";
 
 export default function CookingStaffHome() {
   const [newOrders, setNewOrders] = useState([]);
-  const [orderHistory, setOrderHistory] = useState([]);
 
   useEffect(() => {
     fetchNewOrders();
-    fetchOrderHistory();
-    const intervalId = setInterval(fetchNewOrders, 5000); // Fetch new orders every 5 seconds
+    const intervalId = setInterval(fetchNewOrders, 2000); // Fetch new orders every 5 seconds
     return () => clearInterval(intervalId);
   }, []);
 
@@ -24,19 +22,6 @@ export default function CookingStaffHome() {
       console.error("Error fetching new orders:", error);
     }
   };
-
-  const fetchOrderHistory = async () => {
-    try {
-      const response = await siteRequest.get('orders/history'); // Update the endpoint to match the server route
-      if (!response.data || !Array.isArray(response.data)) {
-        throw new Error("Invalid data received");
-      }
-      setOrderHistory(response.data); // Set order history directly from the response
-    } catch (error) {
-      console.error("Error fetching order history:", error);
-    }
-  };
-  
 
   return (
     <div className="h-screen overflow-y-scroll">
@@ -67,18 +52,6 @@ export default function CookingStaffHome() {
               }
               return acc;
             }, []).reverse().map((order, index) => ( // Reverse the array before mapping
-              <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
-                <OrderComp order={order} key={order.order_id} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="h-full sm:h-3/4 sm:border-none">
-          <h1 className="text-white text-xl bg-orange-400 font-bold">
-            Accepted Order
-          </h1>
-          <div className="h-90% w-full sm:flex overflow-x-scroll py-2 sm:border border border-gray-400 px-2 bg-yellow-50">
-            {orderHistory.map((order, index) => (
               <div className="sm:mx-2 w-full my-2 sm:my-0" key={`${order.order_id}-${index}`}>
                 <OrderComp order={order} key={order.order_id} />
               </div>
