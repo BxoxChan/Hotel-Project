@@ -60,6 +60,38 @@ router.post('/cook/login', (req, res) => {
   });
 });
 
+// Define a route to add data to the AdOnService table
+router.post('/add-adon-service', (req, res) => {
+  const { name, price } = req.body; // Assuming the request body contains the 'name' and 'price' of the AdOnService
+
+  // Set default value for status to true
+  const status = true;
+
+  const sql = `INSERT INTO AdOnService (name, price, status) VALUES (?, ?, ?)`; // Update SQL query to include status
+  db.query(sql, [name, price, status], (err, result) => {
+      if (err) {
+          console.error('Error adding data to AdOnService table:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          console.log('Data added to AdOnService table successfully');
+          res.status(200).json({ message: 'Data added to AdOnService table successfully' });
+      }
+  });
+});
+
+// Define a route to fetch data from the AdOnService table
+router.get('/adon-service', (req, res) => {
+  const sql = `SELECT * FROM AdOnService`;
+  db.query(sql, (err, result) => {
+      if (err) {
+          console.error('Error fetching AdOnService data:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          console.log('AdOnService data fetched successfully');
+          res.status(200).json({ data: result });
+      }
+  });
+});
 
 // Get all customers
 router.get('/customers', (req, res) => {
@@ -214,7 +246,6 @@ router.post('/orders', (req, res) => {
       });
   });
 });
-
 
 // Fetch New Order
 router.get('/orders/new', (req, res) => {
