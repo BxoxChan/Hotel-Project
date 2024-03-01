@@ -37,6 +37,7 @@ export default {
       },
       boxShadow: {
         shadowCust: "0.5px 0px 10px 0.5px gray",
+        shadowCust2: " 0 0 10px 2px orange",
       },
     },
   },
