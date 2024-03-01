@@ -85,9 +85,10 @@ const createAdminTable = () => {
 const createAdOnServiceTable = () => {
     const sql = `
         CREATE TABLE IF NOT EXISTS AdOnService (
-            ad_service_id INT PRIMARY KEY,
+            ad_service_id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255),
-            price DECIMAL(10, 2)
+            price DECIMAL(10, 2),
+            status BOOLEAN
         )
     `;
     db.query(sql, (err) => {

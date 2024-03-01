@@ -21,7 +21,7 @@ export default function OrdersCard({type}) {
 
       <div className='font-bold text-center text-3xl'>
            {
-          type=="cafe" ? <h1 className='text-green-300'>10</h1>: type=="resturant" ? <h1 className='text-blue-400'>20</h1> :<h1 className='text-orange-300'>30</h1>
+          type=="cafe" ? <h1 className='text-green-300'></h1>: type=="resturant" ? <h1 className='text-blue-400'></h1> :<h1 className='text-orange-300'></h1>
              }
       </div>
 

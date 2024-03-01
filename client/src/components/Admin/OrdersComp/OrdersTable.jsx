@@ -1,52 +1,39 @@
-import React from 'react'
-import OrderCardComp from './OrderCardComp'
-import { data } from '../../../util/data'
+import React from 'react';
+import OrderCardComp from './OrderCardComp';
 
-export default function OrdersTable({comp}) {
+export default function OrdersTable({ comp, orderData }) {
   return (
     <>
-    {/* Default Comp is  Cafe*/}
-    <table className='sm:w-full  h-full sm:table-fixed '>
-      <thead className=' border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
-        <tr>
-        <th>ID</th>
-        <th>Service</th> 
-        <th>Customer</th>
-        <th>Orders</th>
-        <th>Mobile</th>
-        <th>Total</th>
-        <th>Payment</th>
-        </tr>
-      </thead>
-         {/* orderData Card */}
+      {/* Default Comp is  Cafe*/}
+      <table className='sm:w-full h-full sm:table-fixed'>
+        <thead className='border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
+          <tr>
+            <th>ID</th>
+            <th>Service</th>
+            <th>Customer</th>
+            <th>Orders</th>
+            <th>Mobile</th>
+            <th>Total</th>
+            <th>Payment</th>
+          </tr>
+        </thead>
         <tbody>
-           {/* {dummyMenu.map((m)=>(
-            <MenuCard
-           image={m.image}
-           dish={m.dish}
-           price={m.price}
-           servicesIn={m.servicesIn}
-           status={m.status}
-           />
-           ))} */}
-
-          {
-          data.filter((m)=>(
-           m.serv===comp
-          )).map((p)=>(
-        <OrderCardComp
-         id={p.id}
-         //key={p.id}
-        serv={p.serv}
-        order={p.order}
-        customer={p.customer}
-        phone={p.phone}
-        total={p.total}
-        status={p.status}/>
-          ))
-}
+          {orderData && Array.isArray(orderData) && orderData.length > 0 && orderData
+            .filter((order) => order.serv === comp)
+            .map((order) => (
+              <OrderCardComp
+                key={order.id} // Ensure you provide a unique key for each order
+                id={order.id}
+                serv={order.serv}
+                order={order.order}
+                customer={order.customer}
+                phone={order.phone}
+                total={order.total}
+                status={order.status}
+              />
+            ))}
         </tbody>
-         </table>
+      </table>
     </>
-  )
+  );
 }

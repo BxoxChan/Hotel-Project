@@ -1,71 +1,59 @@
-import React from 'react'
+import React from "react";
 
-export default function AcceptedOrder({accept,complete,paid}) {
-  return (
-    <div className='px-2 h-full overflow-y-scroll border-2 border-red-500  rounded-md my-2'>
-        <div className='flex justify-between '>
-        <div className=''>
-        <h1 className='font-bold'>Table</h1>
-        <span>#C01</span>
-        </div>
-        {/* order status */}
+const AcceptedOrder = ({ orders }) => {
+  // Filter only the orders with status "Accepted"
+  const acceptedOrders = orders.filter(order => order.status === "Accepted");
 
-        {
-        (accept && !complete) ?
-         <div className='mt-5 flex'> 
-       <p className='rounded-sm px-2  text-orange-400 font-bold'>...processing</p>
-        <button className='bg-green-400 text-white '>Complete</button> 
-        </div>
-        :
-        (complete && !paid)?
-        <div className='mt-5 flex '> 
-       <p className='rounded-sm px-2  text-orange-400 font-bold'>...Eating</p>
-        <button className='bg-green-400 text-white px-5 rounded-sm'>Pay</button> 
-        </div>
-          : 
-            <div className='mt-5 flex'> 
-       <p className='rounded-sm  text-red-500 font-bold border-2 border-red-500 px-2'>PAID</p>
-        {/* <button className='bg-green-400 text-white '>Pay</button>  */}
-        </div>
-        
+  // Function to determine the prefix based on the service type ID
+  const getServiceTypePrefix = (service_type_id) => {
+    switch (service_type_id) {
+      case 1:
+        return "H"; // Hotel
+      case 2:
+        return "C"; // Cafe
+      case 3:
+        return "R"; // Restaurant
+      default:
+        return ""; // Default empty prefix
     }
+  };
 
+  return (
+    <div>
+      {acceptedOrders.map((order, index) => (
+        <div className="bg-white rounded-lg shadow-md p-4 relative border w-full border-green-400 sm:w-72" key={index}>
+          <h2 className="text-lg font-bold mb-2 text-gray-800">
+            Order ID: {order.order_id}
+          </h2>
+          <p className="mb-2 text-sm text-gray-700">
+            Customer Name:{" "}
+            <strong className="font-bold">{order.customer_name}</strong>
+          </p>
+          <p className="mb-2 text-sm text-gray-700">
+            Customer Phone Number: {order.customer_phone_number}
+          </p>
+          <p className="mb-2 text-sm text-gray-700">
+            Table or Room Number:{" "}
+            <strong>
+              {getServiceTypePrefix(order.service_type_id)}
+              {order.table_or_room_number}
+            </strong>
+          </p>
+          <p className="mb-2 text-sm text-gray-700">
+            Total Cost: ₹{order.total_cost}
+          </p>
+          <p className="mb-2 text-sm text-gray-700 font-bold">
+            Accepted Items:
+            <ul>
+              {order.item_names.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </p>
         </div>
-
-        <div>
-            <h1 className='font-bold'>Name</h1>
-            <span>{"#Bhaskar"}</span>
-        </div>
-
-         <h1 className='font-bold'>Order{"(4)"}</h1>
-        <div className='border-2  overflow-y-scroll h-1/3'>
-            <div className='flex justify-between px-2 border '>
-            <li className='w-3/4'>#Manchurian kofta</li>
-            <span>{"1"}</span>
-            </div>
-            <div className='flex justify-between px-2 border'>
-            <li>#Noodles</li>
-            <span>{"1/2"}</span>
-            </div>
-            <div className='flex justify-between px-2 border'>
-            <li>#Momo</li>
-            <span>{"1"}</span>
-            </div>
-            <div className='flex justify-between px-2 border'>
-            <li>#Momo</li>
-            <span>{"1"}</span>
-            </div>
-        </div>
-
-        <div className=''>
-          <h1 className='font-bold'>Additions</h1>  
-          <p>{"- extra cheese"}</p>
-        </div>
-
-        <div className='flex justify-between'>
-            <h1 className='font-bold'>Amount</h1>
-            <h1>₹<span className='text-green-400'>{"1900"}</span></h1>
-        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
+
+export default AcceptedOrder;
