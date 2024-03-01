@@ -6,12 +6,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Cart } from '../context/OrderContext';
 import { siteRequest } from '../util/requestMethod';
+import Counter from '../components/Counter';
 
 export default function CafeConfirm() {
   const { cart, setCart, order, setOrder, table } = useContext(Cart);
   const [cartItems, setCartItems] = useState([]);
   const [totalCost, setTotalCost] = useState(0); 
   const navigate = useNavigate();
+  const [orderPlaced,setOrderPlaced] = useState(false);
 
   useEffect(() => {
     let total = 0;
@@ -62,18 +64,19 @@ export default function CafeConfirm() {
       }))
     };
   
-  
-    siteRequest.post('orders', orderData)
-      .then(response => {
-        console.log('Order placed successfully:', response.data);
-        toast.success('Order placed successfully!'); // Display success toast
-        setTimeout(()=>navigate('/'),3000);
+    //   console.log('orders', orderData);
+    //  setTimeout(()=>navigate('/booked'),2000);
+      siteRequest.post('orders', orderData)
+        .then(response => {
+          console.log('Order placed successfully:', response.data);
+          toast.success('Order placed successfully!'); // Display success toast
+          setTimeout(()=>navigate('/booked'),2000);
         
-      })
-      .catch(error => {
-        console.error('Error placing order:', error);
-        toast.error('Error placing order'); // Display error toast
-      });
+       })
+        .catch(error => {
+          console.error('Error placing order:', error);
+          toast.error('Error placing order'); // Display error toast
+        });
   };
 
   return (
@@ -111,8 +114,8 @@ export default function CafeConfirm() {
           <div>Total</div>
           <div>₹{totalCost}</div>
         </div>
-      </div>
-      <button className="bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0" onClick={handleSubmit}>Place Order (₹{totalCost})</button>
+      </div> 
+      <button className={(orderPlaced)?`hidden`:`bg-orange-500 text-white w-full py-2 text-2xl mt-5 absolute bottom-0`} onClick={handleSubmit}>Place Order (₹{totalCost})</button>
     </div>
   );
 }

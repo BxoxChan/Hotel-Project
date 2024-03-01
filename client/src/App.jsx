@@ -17,6 +17,7 @@ import Admin from './pages/Login Page/Admin'
 import CookingStaff from './pages/Login Page/CookingStaff'
 import PageNotFound from './pages/PageNotFound'
 import { ContextProvider } from './context/OrderContext'
+import CounterPage from './pages/CounterPage'
 
 
 export default function App() {
@@ -44,6 +45,9 @@ export default function App() {
             {/* logIn */}
             <Route path='/signin/admin' element={<Admin/>}/>
             <Route path='/signin/cooksPanel' element={<CookingStaff/>}/>
+
+            {/* Counter */}
+            <Route path='/booked' element={<CounterPage/>}/>
 
             {/* 404 */}
             <Route path='*' element={<PageNotFound/>}/>
