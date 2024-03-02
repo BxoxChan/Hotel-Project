@@ -16,7 +16,16 @@ export default function OrdersTable({ comp }) {
         console.error('Error fetching order history:', error);
       });
   }, []); // Empty dependency array to run the effect only once when the component mounts
-
+   
+  let serv = null;
+  if(comp==='Hotel'){
+    serv=1
+  }else if(comp==='cafe'){
+    serv=2
+  }else if(comp==='Resturant'){
+  serv=3
+  }
+  //console.log(orderData);
   return (
     <>
       {/* Default Comp is Cafe*/}
@@ -33,17 +42,17 @@ export default function OrdersTable({ comp }) {
         </thead>
         <tbody>
           {orderData && Array.isArray(orderData) && orderData.length > 0 && orderData
-            .filter(order => order.serv === comp)
-            .map(order => (
+            .filter(order => order.service_type_id === serv)
+            .map((order,index) => (
               <OrderCardComp
-                key={order.id}
+                key={index}
                 id={order.order_id}
-                service={order.order.service_type_id}
-                orders={order.order.item_name}
-                name={order.order.customer_name}
-                phone={order.order.customer_phone_number}
-                total={order.order.total_cost}
-                status={order.order.status}
+                service={order.service_type_id}
+                orders={order.item_name}
+                name={order.customer_name}
+                phone={order.customer_phone_number}
+                total={order.total_cost}
+                status={order.status}
               />
             ))}
         </tbody>
