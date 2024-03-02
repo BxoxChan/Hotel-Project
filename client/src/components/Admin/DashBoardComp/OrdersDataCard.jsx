@@ -9,7 +9,7 @@ export default function OrdersDataCard({id,serv,order,customer,phone,total,statu
         <td className='overflow-x-scroll max-w-14 border-black border no-scrollbar ' >{order}</td>
         {phone?<td className='pl-1'>{phone}</td>:<td className='pl-5'>-</td>}
         <td>₹{total}</td>
-        {status=="paid"?<td className="text-red-500 font-bold">{status.toUpperCase()}</td>: <td className=''>-</td>}
+        {status=="Accepted"?<td className="text-green-500 font-bold">{status.toUpperCase()}</td>: <td className=''>-</td>}
     </tr>
   )
 }
