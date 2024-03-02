@@ -9,30 +9,56 @@ export default function OrdersTable({ comp }) {
     // Fetch order data from the backend API
     siteRequest.get('/orders/accepted')
       .then(response => {
-        setOrderData(response.data);
-        // console.log(response.data);
+        const combinedOrders = combineOrders(response.data);
+        console.log("Combined Orders:", combinedOrders);
+        setOrderData(combinedOrders);
       })
       .catch(error => {
-        console.error('Error fetching order history:', error);
+        console.log('Error fetching order history:', error);
       });
   }, []); // Empty dependency array to run the effect only once when the component mounts
    
+  const combineOrders = (data) => {
+    const combinedOrders = {};
+    data.forEach(order => {
+      if (!combinedOrders[order.order_id]) {
+        combinedOrders[order.order_id] = {
+          ...order,
+          item_names: [order.item_name]
+        };
+      } else {
+        combinedOrders[order.order_id].item_names.push(order.item_name);
+      }
+    });
+
+    // Convert the object values into an array
+    const ordersArray = Object.values(combinedOrders);
+
+    // Sort the orders based on order_id in descending order
+    ordersArray.sort((a, b) => b.order_id - a.order_id);
+
+    return ordersArray;
+  };
+
+  // Determine service type ID based on 'comp' prop
   let serv = null;
-  if(comp==='Hotel'){
-    serv=1
-  }else if(comp==='cafe'){
-    serv=2
-  }else if(comp==='Resturant'){
-  serv=3
+  if(comp === 'Hotel'){
+    serv = 1;
+  } else if(comp === 'Cafe'){
+    serv = 2;
+  } else if(comp === 'Restaurant'){
+    serv = 3;
   }
-  //console.log(orderData);
+
+  console.log("Service Type ID:", serv);
+
   return (
     <>
       {/* Default Comp is Cafe*/}
       <table className='sm:w-full h-full sm:table-fixed'>
         <thead className='border-black font-semibold table-fixed text-left bg-orangeD1 sticky top-0'>
           <tr>
-            <th>Service ID</th>
+            <th>Service</th>
             <th>Name</th>
             <th>Orders</th>
             <th>Mobile</th>
@@ -46,13 +72,7 @@ export default function OrdersTable({ comp }) {
             .map((order,index) => (
               <OrderCardComp
                 key={index}
-                id={order.order_id}
-                service={order.service_type_id}
-                orders={order.item_name}
-                name={order.customer_name}
-                phone={order.customer_phone_number}
-                total={order.total_cost}
-                status={order.status}
+                order={order}
               />
             ))}
         </tbody>

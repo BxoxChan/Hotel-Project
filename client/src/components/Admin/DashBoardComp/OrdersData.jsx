@@ -4,6 +4,7 @@ import { siteRequest } from '../../../util/requestMethod';
 
 export default function OrdersData() {
   const [ordersData, setOrdersData] = useState([]);
+
   useEffect(() => {
     // Fetch order data from the backend API
     siteRequest.get('/orders/accepted')
@@ -29,17 +30,24 @@ export default function OrdersData() {
         combinedOrders[order.order_id].item_names.push(order.item_name);
       }
     });
-    return Object.values(combinedOrders);
+
+    // Convert the object values into an array
+    const ordersArray = Object.values(combinedOrders);
+
+    // Sort the orders based on order_id in descending order
+    ordersArray.sort((a, b) => b.order_id - a.order_id);
+
+    return ordersArray;
   };
 
-  console.log("Orders Data",ordersData);
+  console.log("Orders Data", ordersData);
 
   return (
     <div className='border-2 border-black bg-white font-sans max-h-full overflow-y-scroll sm:mx-5'>
       <table className='w-full '>
         <thead className='border-black font-semibold sm:table-fixed text-left bg-orangeD1 sticky top-0'>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Service</th>
             <th>Customer</th>
             <th>Orders</th>

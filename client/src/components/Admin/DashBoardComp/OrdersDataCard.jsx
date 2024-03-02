@@ -13,7 +13,7 @@ export default function OrdersDataCard( order ) {
   }
   return (
     <tr className='even:bg-gray-100 w-full'>
-      <td>#{order_id}</td>
+      {/* <td>#{order_id}</td> */}
       <td>{serv}</td>
       <td>{customer_name}</td>
       <td className='w-1/4'>{item_names.map((a)=>a+" , ")}</td>
