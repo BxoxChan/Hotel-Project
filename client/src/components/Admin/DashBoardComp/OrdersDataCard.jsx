@@ -2,14 +2,22 @@ import React from 'react';
 
 export default function OrdersDataCard( order ) {
   const { order_id, service_type_id, customer_name, customer_phone_number, total_cost, status, item_names } = order.order;
-  console.log(order.order)
+  //console.log(order.order.item_names);
+  let serv = null;
+  if(service_type_id===1){
+    serv="Hotel"
+  }else if(service_type_id===2){
+    serv="cafe"
+  }else if(service_type_id===3){
+  serv="Resturant"
+  }
   return (
-    <tr className='even:bg-gray-100'>
+    <tr className='even:bg-gray-100 w-full'>
       <td>#{order_id}</td>
-      <td>{service_type_id}</td>
+      <td>{serv}</td>
       <td>{customer_name}</td>
+      <td className='w-1/4'>{item_names.map((a)=>a+" , ")}</td>
       <td>{customer_phone_number}</td>
-      <td>{item_names}</td>
       <td>{total_cost}</td>
       <td>{status}</td>
       {/* <td className='overflow-x-scroll max-w-14 border-black border no-scrollbar'>
