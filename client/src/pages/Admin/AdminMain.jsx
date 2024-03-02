@@ -16,6 +16,7 @@ export default function AdminMain() {
               <OrdersCard type={"hotel"}/>
             </div>
 
+             {/* Table */}
             <div className='h-3/5 mt-2 sm:mt-0'>
               <OrdersData/>
             </div>

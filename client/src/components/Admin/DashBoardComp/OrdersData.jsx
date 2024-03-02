@@ -55,7 +55,7 @@ export default function OrdersData() {
             <th>Orders</th>
             <th>Mobile</th>
             <th>Total</th>
-            <th>Payment</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
