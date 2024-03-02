@@ -313,6 +313,27 @@ router.get('/orders/history', (req, res) => {
   });
 });
 
+// Fetch accepted orders with order items
+router.get('/orders/accepted', (req, res) => {
+  // SQL query to fetch orders with status 'Accepted' along with their items
+  const sql = `
+      SELECT OrderTable.*, OrderItem.item_name
+      FROM OrderTable
+      INNER JOIN OrderItem ON OrderTable.order_id = OrderItem.order_id
+      WHERE OrderTable.status = 'Accepted'
+  `;
+  
+  // Execute the query
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching accepted orders:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          res.json(results); // Send the fetched data as a response
+      }
+  });
+});
+
 // Route to add a new service
 router.post('/add-service', (req, res) => {
   // Extract service data from the request body
